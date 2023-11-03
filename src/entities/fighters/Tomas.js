@@ -78,8 +78,8 @@ export class Tomas extends Fighter {
 
       this.initialVelocity = {
         x:{
-          [FighterState.WALK_FORWARD]:200,
-          [FighterState.WALK_BACKWARD]:-150,
+          [FighterState.WALK_FORWARD]:150,
+          [FighterState.WALK_BACKWARD]:-100,
           [FighterState.JUMP_FORWARD]:170,
           [FighterState.JUMP_BACKWARD]:-200,
         },
