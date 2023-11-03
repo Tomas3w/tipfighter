@@ -8,8 +8,22 @@
 	<script type="module"  src="./src/index.js"></script>
 </head>
 <body>
+	<form >
+		<div>
+			<input id="ken" type="checkbox" name="fighter" value="Ken" />
+			<label for="Ken">Ken</label>
+		</div>
+		<div>
+			<input id="ryu" type="checkbox" name="fighter" value="Ryu" />
+			<label for="ryu">Ryu</label>
+		</div>
+		<select  id="state-dropdown" name="state"></select>
+		<button type="submit">Transition!</button>
+	</form>
+	<main>
+		<canvas id="canvas"></canvas>
+	</main>
 	
-	<canvas id="canvas"></canvas>
 	<img src="./images/ken.png" alt="ken">	
 	<img src="./images/background.png" alt="background">
 	<img src="./images/ryu.png" alt="ryu">
