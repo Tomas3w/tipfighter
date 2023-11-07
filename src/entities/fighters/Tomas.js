@@ -1,8 +1,8 @@
 import {Fighter} from './Fighter.js';
 import {FighterState} from '../../constants/fighter.js'
 export class Tomas extends Fighter {
-    constructor(x,y,velocity){
-      super('Tomas',x,y,velocity);
+    constructor(x,y,direction,playerId){
+      super('Tomas',x,y,direction,playerId);
       this.image = document.querySelector('img[alt="tomas"]');
 
       this.frames = new Map([

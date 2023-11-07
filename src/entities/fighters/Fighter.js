@@ -1,9 +1,11 @@
 import { FighterDirection } from '../../constants/fighter.js';
 import {FighterState} from '../../constants/fighter.js'
 import { STAGE_FLOOR } from '../../constants/stage.js';
+import * as control from '../../inputHandler.js';
 export class Fighter{
-    constructor(name,x,y,direction){
+    constructor(name,x,y,direction, playerId){
         this.name = name; 
+        this.playerId = playerId;
         this.position = {x,y};   
         this.velocity = { x:0 , y:0 };
         this.initialVelocity = {};
@@ -13,13 +15,14 @@ export class Fighter{
         this.animationFrame = 0;
         this.animationTimer = 0;
         this.animations = {};
-
+        //Pagina para ver los codigos del tecado
+        //toptalcom developers keycode
         this.image = new Image();  
         //maquina de estados
         this.states = {
             [FighterState.IDLE]:{
                 init: this.handleIdleInit.bind(this),
-                update:() => {},
+                update:this.handleIdleState.bind(this),
                 validFrom: [
                     undefined,
                     FighterState.IDLE,FighterState.WALK_FORWARD,FighterState.WALK_BACKWARD,
@@ -29,14 +32,14 @@ export class Fighter{
             },
             [FighterState.WALK_FORWARD]:{
                 init: this.handleMoveInit.bind(this),
-                update:() => {},
+                update:this.handleWalkForwardState.bind(this),
                 validFrom: [
                     FighterState.IDLE,FighterState.WALK_BACKWARD
                 ],
             },
             [FighterState.WALK_BACKWARD]:{
                 init: this.handleMoveInit.bind(this),
-                update:() => {},
+                update:this.handleWalkBackwardsState.bind(this),
                 validFrom: [
                     FighterState.IDLE,FighterState.WALK_FORWARD
                 ],
@@ -116,6 +119,22 @@ export class Fighter{
         if(this.animations[this.currentState][this.animationFrame][1] === -2){
             this.changeState(FighterState.IDLE);
         }
+    }
+
+    handleIdleState(){
+        if(control.isUp(this.playerId)) this.changeState(FighterState.JUMP_UP);
+        if(control.isBackward(this.playerId,this.direction)) this.changeState(FighterState.WALK_BACKWARD);
+        if(control.isForward(this.playerId,this.direction)) this.changeState(FighterState.WALK_FORWARD);
+    }
+
+    handleWalkForwardState(){
+        if(!control.isForward(this.playerId,this.direction)) this.changeState(FighterState.IDLE);
+        if(control.isUp(this.playerId)) this.changeState(FighterState.JUMP_FORWARD);
+    }
+
+    handleWalkBackwardsState(){
+        if(!control.isBackward(this.playerId,this.direction)) this.changeState(FighterState.IDLE);
+        if(control.isUp(this.playerId)) this.changeState(FighterState.JUMP_BACKWARD);
     }
     handleJumpState(time){
         this.velocity.y += this.gravity * time.secondsPassed;
