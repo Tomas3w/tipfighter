@@ -20,9 +20,6 @@ export class Tomas extends Fighter {
         ['jump-up-1',[[23,229,32,69],[32,107]]],
         ['jump-up-2',[[67,221,27,79],[25,103]]],
        
-        
-       
-
          //jump Forwards/backwards
          ['jump-roll-1',[[442,261,61,78],[22,90]]],
          ['jump-roll-2',[[442,261,61,78],[22,90]]],
@@ -33,9 +30,9 @@ export class Tomas extends Fighter {
          ['jump-roll-7',[[883,261,54,109],[31,113]]],
 
           //crouch
-        ['crouch-1',[[551,21,53,83],[27,81]]],
-        ['crouch-2',[[611,36,57,69],[25,66]]],
-        ['crouch-3',[[679,44,61,61],[25,58]]],
+        ['crouch-1',[[36,316,32,69],[32,78]]],
+        ['crouch-2',[[95,315,32,70],[32,78]]],
+       
       ]);
 
       this.animations = {
@@ -63,15 +60,15 @@ export class Tomas extends Fighter {
           ,['jump-roll-1',0],
         ],
         [FighterState.CROUCH]:[
-          ['crouch-3',0],
+          ['crouch-2',0],
         
         ],
         [FighterState.CROUCH_DOWN]:[
-          ['crouch-1',30],['crouch-2',30],['crouch-3',-2],
+          ['crouch-1',50],['crouch-2',-2],
         
         ],
         [FighterState.CROUCH_UP]:[
-          ['crouch-3',30],['crouch-2',30],['crouch-1',-2],
+         ['crouch-2',50],['crouch-1',-2],
         
         ],
       };
