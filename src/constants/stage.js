@@ -1,1 +1,1 @@
-export const STAGE_FLOOR = 200;
+export const STAGE_FLOOR = 219;
