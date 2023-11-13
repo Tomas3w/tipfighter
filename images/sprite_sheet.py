@@ -2,6 +2,8 @@ import os, sys
 import pygame
 from pygame.locals import *
 
+invertir_sprites = False
+
 def create_sprite_sheet(input_folder, output_folder, row_height):
     pygame.init()
 
@@ -17,11 +19,18 @@ def create_sprite_sheet(input_folder, output_folder, row_height):
         output_path = os.path.join(output_folder, f"{folder_name}.png")
         images = []
 
+        invertir_despues = False
         for image_name in os.listdir(folder_path):
             if image_name.lower().endswith(".png"):
                 image_path = os.path.join(folder_path, image_name)
                 image = pygame.image.load(image_path)
                 images.append(image)
+                images[-1] = pygame.transform.flip(images[-1], invertir_sprites, False)
+            if image_name == 'invertir':
+                invertir_despues = True
+        if invertir_despues:
+            for i in range(len(images)):
+                images[i] = pygame.transform.flip(images[i], True, False)
 
         if images:
             spacing = 10
@@ -64,6 +73,8 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print('Falta el nombre de la carpeta de donde sacar los sprites!')
         exit()
+    if len(sys.argv) > 2:
+        invertir_sprites = True
     input_folder = sys.argv[1]
     output_folder = "sprite_sheets"
 
