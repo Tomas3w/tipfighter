@@ -13,7 +13,8 @@ export class StatusBar{
         this.fighters = fighters;
 
         this.frames = new Map([
-            ['health-bar',[16,18,145,11]],
+            // ['health-bar',[16,18,145,11]],
+            ['health-bar',[6,218,376,35]],
 
             ['ko-white',[161,16,32,14]],
 
@@ -74,23 +75,23 @@ export class StatusBar{
     }
 
     drawHealthBars(context){
-        this.drawFrame(context,'health-bar',31,20);
-        this.drawFrame(context,'ko-white',176,18);
-        this.drawFrame(context,'health-bar',353,20,-1);
+        this.drawFrame(context,'health-bar', (context.canvas.width - this.frames.get('health-bar')[2]) / 2, 10);
+        // this.drawFrame(context,'ko-white',176,18);
+        // this.drawFrame(context,'health-bar',353,20,-1);
     }
 
     drawNameTags(context){
         const [name1,name2] = this.names;
 
-        this.drawFrame(context,name1,32,33);
-        this.drawFrame(context,name2,322,33);
+        this.drawFrame(context,name1, 4,43);
+        this.drawFrame(context,name2,350,43);
     }
 
     drawTime(context){
         const timeString = String(Math.max(this.time,0)).padStart(2,'00');
         const flashFrame = TIME_FRAME_KEYS[Number(this.useFlashFrames)];
-        this.drawFrame(context,`${flashFrame}-${timeString.charAt(0)}`,178,33);
-        this.drawFrame(context,`${flashFrame}-${timeString.charAt(1)}`,194,33);
+        this.drawFrame(context,`${flashFrame}-${timeString.charAt(0)}`,178,47);
+        this.drawFrame(context,`${flashFrame}-${timeString.charAt(1)}`,194,47);
 
     }
 

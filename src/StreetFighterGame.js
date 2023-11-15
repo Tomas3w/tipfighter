@@ -9,25 +9,15 @@ import { pollGamepads, registerGamepadEvents, registerKeyboardEvents } from "./i
 import { StatusBar } from "./entities/overlays/StatusBar.js";
 import { Camera } from "./Camera.js";
 import { getContext } from "./utils/context.js";
+import { BattleScene } from "./scenes/BattleScene.js";
+import { MenuScene } from "./scenes/MenuScene.js";
 export class StreetFighterGame{
 constructor(){
     this.context = getContext();
-    this.fighters = [
-        new Ryu(0),new Ken(1),
-      //  new Tomas(150,STAGE_FLOOR,FighterDirection.LEFT,1),
-    ]
-    
-    this.fighters[0].opponent = this.fighters[1];
-    this.fighters[1].opponent = this.fighters[0];
-    this.camera = new Camera(STAGE_MID_POINT + STAGE_PADDING -(this.context.canvas.width / 2),16,this.fighters);
-    this.entities = [ 
-        new Stage(),
-      
-        ...this.fighters,
-        new FpsCounter(),
-        new StatusBar(this.fighters),
-    ]
-    
+
+    this.currentScene = new MenuScene(this, this.context);
+    // this.currentScene = new BattleScene(this, this.context);
+
     this.frameTime = {
          previous : 0,
          secondsPassed : 0,
@@ -36,40 +26,30 @@ constructor(){
 
 
 
-update(){
-    this.camera.update(this.frameTime,this.context);
-
-    for (const entity of this.entities){
-        entity.update(this.frameTime,this.context,this.camera);
-
-    }
+update() {
+    this.currentScene.update(this.frameTime, this.context);
 }
 
-draw(){
-    for (const entity of this.entities){
-        entity.draw(this.context,this.camera);
+draw() {
+    // for (const entity of this.entities){
+    //     entity.draw(this.context,this.camera);
+    // }
+    this.currentScene.draw(this.context);
+}
+
+
+
+    frame(time){
+        window.requestAnimationFrame(this.frame.bind(this));
+        this.frameTime = {
+            secondsPassed : (time - this.frameTime.previous) / 1000,
+            previous : time,
+        }
         
+        pollGamepads();
+        this.update();
+        this.draw();
     }
-}
-
-
-
- frame(time){
-    window.requestAnimationFrame(this.frame.bind(this));
-    this.frameTime = {
-        secondsPassed : (time - this.frameTime.previous) / 1000,
-        previous : time,
-    }
-    
-    pollGamepads();
-    this.update();
-    this.draw();
-
-    
-
-  
-    
-}
 
 
 
