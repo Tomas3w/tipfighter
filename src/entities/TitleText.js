@@ -35,7 +35,7 @@ export class TitleText {
     }
 
     drawFrame(context){
-        drawFrame(context, this.image, [0, 0, 278, 106], (context.canvas.width - this.image.naturalWidth) / 2, this.frame);
+        drawFrame(context, this.image, [0, 0, 378, 106], (context.canvas.width - this.image.naturalWidth) / 2, this.frame);
     }
 
     draw(context, camera){

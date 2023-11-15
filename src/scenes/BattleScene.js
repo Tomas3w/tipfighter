@@ -11,7 +11,8 @@ import { Camera } from "../Camera.js";
 import { getContext } from "../utils/context.js";
 
 export class BattleScene {
-    constructor(context) {
+    constructor(game, context) {
+        this.game = game;
         this.fighters = [
             new Ryu(0),new Ken(1),
           //  new Tomas(150,STAGE_FLOOR,FighterDirection.LEFT,1),

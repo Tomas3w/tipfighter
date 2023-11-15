@@ -10,17 +10,23 @@ import { StatusBar } from "../entities/overlays/StatusBar.js";
 import { Camera } from "../Camera.js";
 import { getContext } from "../utils/context.js";
 import { BackgroundAnimation } from "../entities/BackgroundAnimation.js";
+import { BattleScene } from "../scenes/BattleScene.js";
 import { TitleText } from "../entities/TitleText.js";
 import { Button } from "../entities/Button.js";
 
 export class MenuScene {
-    constructor(context) {
+    constructor(game, context) {
+        this.game = game;
         this.camera_y = 0;
         this.background_animation = new BackgroundAnimation(0);
         this.title_text = new TitleText();
 
-        this.arcade_button = new Button(context, [0, 46, 78, 29], [0, 0, 78, 29], {x: 100, y: 120});
-        this.story_button = new Button(context, [124, 46, 78, 29], [124, 0, 78, 29], {x: 200, y: 120});
+        this.arcade_button = new Button(context, [0, 46, 78, 29], [0, 0, 78, 29], {x: 100, y: 120}, () => {
+            this.game.currentScene = new BattleScene(this, context);
+        });
+        this.story_button = new Button(context, [124, 46, 78, 29], [124, 0, 78, 29], {x: 200, y: 120}, () => {
+            console.log('hello!');
+        });
 
         this.entities = [
             this.background_animation,

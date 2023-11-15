@@ -13,11 +13,12 @@ function  getMousePos(canvas, evt) {
 
 export class Button {
     static animation_duration = 20;
-    constructor(context, unpressed_rectangle, pressed_rectangle, position) {
+    constructor(context, unpressed_rectangle, pressed_rectangle, position, handler) {
         this.image = document.querySelector('img[alt="buttons"]');
         this.unpressedRectangle = unpressed_rectangle;
         this.pressedRectangle = pressed_rectangle;
         this.position = position;
+        this.handler = handler;
 
         this.pressed = false;
         this.hovered = false;
@@ -50,7 +51,10 @@ export class Button {
             const mouseY = mouse.y;
 
             if (this.hovered && this.pressed)
-                console.log('pressed on!');
+            {
+                handler();
+                // console.log('pressed on!');
+            }
             this.pressed = false;
         }
 
