@@ -5,10 +5,21 @@ html,body{
 }
 
 
-body{
+/*body{
     display: flex;
- 
-  
+}*/
+
+.canvas-container {
+    width: 100vw; 
+    height: 58.333333333333336vw; /* 100/58.333333333333336 = 1.7142857142857142 */
+    background: pink;
+    max-height: 100vh;
+    max-width: 171.42857142857142vh; /* 384/224 = 1.778 */
+    margin: auto;
+    position: absolute;
+    top:0;bottom:0; /* vertical center */
+    left:0;right:0; /* horizontal center */
+    overflow: hidden;
 }
 
 body,canvas{

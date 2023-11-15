@@ -27,12 +27,6 @@ constructor(){
 
 
 update() {
-    // this.camera.update(this.frameTime,this.context);
-
-    // for (const entity of this.entities){
-    //     entity.update(this.frameTime,this.context,this.camera);
-
-    // }
     this.currentScene.update(this.frameTime, this.context);
 }
 

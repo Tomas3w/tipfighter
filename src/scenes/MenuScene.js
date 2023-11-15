@@ -11,15 +11,23 @@ import { Camera } from "../Camera.js";
 import { getContext } from "../utils/context.js";
 import { BackgroundAnimation } from "../entities/BackgroundAnimation.js";
 import { TitleText } from "../entities/TitleText.js";
+import { Button } from "../entities/Button.js";
 
 export class MenuScene {
     constructor(context) {
         this.camera_y = 0;
         this.background_animation = new BackgroundAnimation(0);
         this.title_text = new TitleText();
+
+        this.arcade_button = new Button(context, [0, 46, 78, 29], [0, 0, 78, 29], {x: 100, y: 120});
+        this.story_button = new Button(context, [124, 46, 78, 29], [124, 0, 78, 29], {x: 200, y: 120});
+
         this.entities = [
             this.background_animation,
             this.title_text,
+
+            this.arcade_button,
+            this.story_button,
         ]
     }
 
@@ -27,6 +35,8 @@ export class MenuScene {
         for (const entity of this.entities){
             entity.update(time, context, this.camera);
         }
+        this.arcade_button.position.y = this.title_text.frame + 150;
+        this.story_button.position.y = this.title_text.frame + 150;
         if (time.previous > 2000 && !this.background_animation.on)
         {
             this.background_animation.activate(time);
