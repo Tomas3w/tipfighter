@@ -16,9 +16,10 @@ export class StreetFighterGame{
 constructor(){
     this.context = getContext();
 
-    this.currentScene = new MenuScene(this, this.context);
-    // this.currentScene = new CharacterSelectionScene(this, this.context);
-    // this.currentScene = new BattleScene(this, this.context);
+
+//    this.currentScene = new MenuScene(this, this.context);
+     this.currentScene = new BattleScene(this, this.context);
+
 
     this.frameTime = {
          previous : 0,

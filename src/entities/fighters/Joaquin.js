@@ -1,101 +1,164 @@
 import {Fighter} from './Fighter.js';
-import {FighterState} from '../../constants/fighter.js'
+import {FighterState, FrameDelay} from '../../constants/fighter.js'
 export class Joaquin extends Fighter {
-  constructor(x,y,direction,playerId){
-    super('Joaquin',x,y,direction, playerId);
-      this.image = document.querySelector('img[alt="ryu"]');
+  constructor(playerId){
+    super('Ken',playerId);
+      this.image = document.querySelector('img[alt="joaquin"]');
+
+
+      this.PushBox = {
+        IDLE: [-24,-87,20,70],
+        JUMP: [-16,-91,32,66],
+        BEND: [-26,-77,32,70],
+        CROUCH: [-50,-120,32,50],
+     }
+     
+     this.HurtBox = {
+        IDLE:[[-20,-86,14,15],[-25,-70,22,34],[-26,-38,20,22]],
+        BACKWARD:[[-19,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
+        FORWARD:[[-3,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
+        JUMP:[[-13,-106,28,18],[-16,-53,40,42],[-22,-66,38,18]],
+        BEND:[[-8,-76,14,16],[-26,-60,32,34],[-1,-30,24,22]],
+        CROUCH:[[6,-61,24,18],[-16,-46,44,24],[-16,-24,44,24]],
+        PUNCH:[[11,-94,24,18],[-7,-77,40,43],[-7,-33,40,33]],
+     };
 
       this.frames = new Map([
          //idle stance
-        ['idle-1',[[75,14,60,89],[34,86]]],
-        ['idle-2',[[7,14,59,90],[33,87]]],
-        ['idle-3',[[277,11,58,92],[32,89]]],
-        ['idle-4',[[211,10,55,93],[31,90]]],
+       
+        ['idle-1',[[[0,340,17,71],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-2',[[[27,340,17.,72],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
-        ['forwards-1',[[9,136,53,83],[27,81]]],
-        ['forwards-2',[[78,131,60,89],[35,86]]],
-        ['forwards-3',[[152,128,64,92],[35,89]]],
-        ['forwards-4',[[229,130,63,90],[29,89]]],
-        ['forwards-5',[[307,128,54,91],[25,89]]],
-        ['forwards-6',[[371,128,50,89],[25,86]]],
+        ['forwards-1',[[[7,765,19,71],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['forwards-2',[[[45,765,17,71],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+      
+        ['backwards-2',[[[45,765,17,71],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['backwards-1',[[[7,765,19,71],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+      
+        ['jump-up-1',[[[7,453,24,57],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-up-2',[[[45,438,29,72],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+      
+        ['jump-kick-1',[[[346,688,60,89],[34,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-kick-2',[[[2,687,59,90],[33,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-kick-3',[[[2,687,59,90],[33,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+      
 
-        ['backwards-1',[[777,128,61,87],[35,85]]],
-        ['backwards-2',[[430,124,59,90],[36,87]]],
-        ['backwards-3',[[495,124,57,90],[36,88]]],
-        ['backwards-4',[[559,124,58,90],[38,89]]],
-        ['backwards-5',[[631,125,58,91],[36,88]]],
-        ['backwards-6',[[707,126,57,89],[36,87]]],
+        ['crouch-1',[[[7,28,24,57],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-2',[[[50,27,24,58],[25,77]],this.PushBox.BEND,this.HurtBox.BEND]],
+        
+        ['jump-roll-1',[[[7,453,24,57],[22,86]],this.PushBox.JUMP,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        ['jump-roll-2',[[[7,453,24,57],[22,86]],this.PushBox.JUMP,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        
+        ['jump-land',[[[660,1060,55,85],[29,83]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+          
+        //stand turn
+        ['idle-turn-1',[[[420,682,54,95],[29,92]],this.PushBox.IDLE,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        ['idle-turn-2',[[[488,678,58,98],[30,95]],this.PushBox.IDLE,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        ['idle-turn-3',[[[560,683,54,94],[27,90]],this.PushBox.IDLE,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
 
-        ['jump-up-1',[[67,244,56,104],[32,107]]],
-        ['jump-up-2',[[138,233,50,89],[25,103]]],
-        ['jump-up-3',[[197,233,54,77],[25,103]]],
-        ['jump-up-4',[[259,240,48,70],[28,101]]],
-        ['jump-up-5',[[319,234,48,89],[25,106]]],
-        ['jump-up-6',[[375,244,55,109],[31,113]]],
 
-         //jump Forwards/backwards
-         ['jump-roll-1',[[442,261,61,78],[22,90]]],
-         ['jump-roll-2',[[442,261,61,78],[22,90]]],
-         ['jump-roll-3',[[507,259,104,42],[61,76]]],
-         ['jump-roll-4',[[617,240,53,82],[42,111]]],
-         ['jump-roll-5',[[676,257,122,44],[71,81]]],
-         ['jump-roll-6',[[804,258,71,87],[53,98]]],
-         ['jump-roll-7',[[883,261,54,109],[31,113]]],
+        //crouch turn
+        ['crouch-turn-1',[[[356,802,53,61],[26,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        ['crouch-turn-2',[[[424,802,52,61],[27,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        ['crouch-turn-3',[[[486,802,53,61],[29,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
 
-          //crouch
-        ['crouch-1',[[551,21,53,83],[27,81]]],
-        ['crouch-2',[[611,36,57,69],[25,66]]],
-        ['crouch-3',[[679,44,61,61],[25,58]]],
+        //light punch (los personajes solo tienen este golpe)
+       
+        ['light-punch-1',[[[11,863,21,70],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-2',[[[48,863,36,70],[23,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[-6,-70,19,8]]],
+
+        ['med-punch-1',[[[517,1149,60,94],[28,91]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['med-punch-2',[[[650,1148,74,95],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
+        ['med-punch-3',[[[736,1148,108,94],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
+
+        ['heavy-punch-1',[[[736,1148,108,94],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
+       
+        //light kick (los personajes solo tienen esta patada)
+       
+        ['light-kick-1',[[[5,692,28,67],[22,86]],this.PushBox.IDLE,[[-33,-96,30,18],[-41,-79,42,38],[-32,-52,44,50]]]],
+        ['light-kick-2',[[[57,695,45,64],[23,86]],this.PushBox.IDLE,[[-65,-96,30,18],[-57,-79,42,38],[-32,-52,44,50]],[14,-78,9,8]]],
+
+        ['med-kick-1',[[[143,1565,114,92],[68,93]],this.PushBox.IDLE,[[-65,-96,30,18],[-57,-79,42,38],[-32,-52,44,50]]]],
+        
+        ['heavy-kick-1',[[[683,1571,61,90],[37,87]],this.PushBox.IDLE,[[-41,-78,20,20],[-25,-78,42,42],[-11,50,42,50]]]],
+        ['heavy-kick-2',[[[763,1567,95,94],[45,91]],this.PushBox.IDLE,[[12,-90,34,34],[-25,-78,42,42],[-11,50,42,50]]]],
+        ['heavy-kick-3',[[[870,1567,120,94],[42,91]],this.PushBox.IDLE,[[13,-91,62,34],[-25,-78,42,42],[-11,50,42,50]]]],
+        ['heavy-kick-4',[[[1005,1584,101,77],[39,74]],this.PushBox.IDLE,[[-41,-78,20,20],[-25,-78,42,42],[-11,50,42,50]]]],
+        ['heavy-kick-5',[[[1147,1580,64,81],[38,78]],this.PushBox.IDLE,[[-41,-78,20,20],[-25,-78,42,42],[-11,50,42,50]]]],
+        
+       
       ]);
 
       this.animations = {
         [FighterState.IDLE]:[
-          ['idle-1',68],['idle-2',68],['idle-3',68],
-          ['idle-4',68],['idle-3',68],['idle-2',68],
+          ['idle-1',300],['idle-2',300],
+        ],
+        [FighterState.IDLE_TURN]:[
+          ['idle-turn-1',33],['idle-turn-2',33],
+          ['idle-turn-1',33],['idle-turn-1',FrameDelay.TRANSITION],
+        
+        ],
+        [FighterState.CROUCH_TURN]:[
+          ['crouch-turn-1',33],['crouch-turn-2',33],
+          ['crouch-turn-1',33],['crouch-turn-1',FrameDelay.TRANSITION],
+        
         ],
         [FighterState.WALK_FORWARD]: [
-          ['forwards-1',65],['forwards-2',65],['forwards-3',65],
-          ['forwards-4',65],['forwards-5',65],['forwards-6',65],
+          ['forwards-1',350],['forwards-2',350],
         ],
         [FighterState.WALK_BACKWARD]:[
-          ['backwards-1',65],['backwards-2',65],['backwards-3',65],
-          ['backwards-4',65],['backwards-5',65],['backwards-6',65],
+          ['backwards-1',350],['backwards-2',350],
+        ],
+        [FighterState.JUMP_START]:[
+          ['jump-land',50],  ['jump-land',FrameDelay.TRANSITION]
+        
+        ],
+        [FighterState.JUMP_LAND]:[
+          ['jump-land',33],  ['jump-land',117],['jump-land',FrameDelay.TRANSITION], 
+        
         ],
         [FighterState.JUMP_UP]:[
-          ['jump-up-1',180],['jump-up-2',100],['jump-up-3',100],
-          ['jump-up-4',100],['jump-up-5',100],['jump-up-6',-1],
+          ['jump-up-1',250],['jump-up-1',150],['jump-up-2',200],['jump-up-2',200],['jump-up-2',-1],
 
         ],
+        [FighterState.LIGHT_PUNCH]:[
+          ['light-punch-1',33],['light-punch-2',66],
+          ['light-punch-1',66],['light-punch-1',FrameDelay.TRANSITION],
+        
+        ],
+        [FighterState.LIGHT_KICK]:[
+          ['light-kick-1',33],['light-kick-2',33],
+          ['light-kick-2',66],['light-kick-2',FrameDelay.TRANSITION],
+        
+        ],
         [FighterState.JUMP_FORWARD]:[
-          ['jump-roll-1',200],['jump-roll-2',50],['jump-roll-3',50],
-          ['jump-roll-4',50],['jump-roll-5',50],['jump-roll-6',50],
-          ['jump-roll-7',0],
+          ['jump-roll-1',750],['jump-roll-2',50],
+          ['jump-roll-2',0],
         ],
         [FighterState.JUMP_BACKWARD]:[
-          ['jump-roll-7',200],['jump-roll-6',50],['jump-roll-5',50],
-          ['jump-roll-4',50],['jump-roll-3',50],['jump-roll-2',50]
-          ,['jump-roll-1',0],
+          ['jump-roll-1',750],['jump-roll-2',50],
+          ['jump-roll-2',0],
         ],
         [FighterState.CROUCH]:[
-          ['crouch-3',0],
+          ['crouch-2',FrameDelay.FREEZE],
         
         ],
         [FighterState.CROUCH_DOWN]:[
-          ['crouch-1',30],['crouch-2',30],['crouch-3',-2],
+          ['crouch-1',50],['crouch-2',FrameDelay.TRANSITION],
         
         ],
         [FighterState.CROUCH_UP]:[
-          ['crouch-3',30],['crouch-2',30],['crouch-1',-2],
+         ['crouch-2',50],['crouch-1',FrameDelay.TRANSITION],
         
         ],
       };
 
       this.initialVelocity = {
         x:{
-          [FighterState.WALK_FORWARD]:200,
-          [FighterState.WALK_BACKWARD]:-150,
-          [FighterState.JUMP_FORWARD]:170,
-          [FighterState.JUMP_BACKWARD]:-200,
+          [FighterState.WALK_FORWARD]:3 * 60,
+          [FighterState.WALK_BACKWARD]:- (2*60),
+          [FighterState.JUMP_FORWARD]:((48*3)+(12*2)),
+          [FighterState.JUMP_BACKWARD]:-((45*4)+(15*3)),
         },
         jump: -420,
       };
