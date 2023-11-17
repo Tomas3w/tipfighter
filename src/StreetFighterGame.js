@@ -11,12 +11,15 @@ import { Camera } from "./Camera.js";
 import { getContext } from "./utils/context.js";
 import { BattleScene } from "./scenes/BattleScene.js";
 import { MenuScene } from "./scenes/MenuScene.js";
+import { CharacterSelectionScene } from "./scenes/CharacterSelectionScene.js";
 export class StreetFighterGame{
 constructor(){
     this.context = getContext();
 
+
 //    this.currentScene = new MenuScene(this, this.context);
      this.currentScene = new BattleScene(this, this.context);
+
 
     this.frameTime = {
          previous : 0,
