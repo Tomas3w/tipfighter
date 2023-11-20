@@ -24,6 +24,7 @@ export class CharacterSelectionScene {
 			this.background_animation.activate(game.frameTime);
 			this.entities.splice(this.entities.indexOf(this.play_button), 1);
 			this.entities.splice(this.entities.indexOf(this.selector), 1);
+            this.play_button.destroy();
         });
 
 		this.selector = new CharacterSelector();
