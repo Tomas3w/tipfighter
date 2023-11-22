@@ -14,34 +14,27 @@ import { BattleScene } from "../scenes/BattleScene.js";
 import { CharacterSelectionScene } from "../scenes/CharacterSelectionScene.js";
 import { TitleText } from "../entities/TitleText.js";
 import { Button } from "../entities/Button.js";
+import { CharacterWCharacter } from "../entities/overlays/CharacterWCharacter.js";
+import { WinnerText } from "../entities/overlays/WinnerText.js";
+import { MenuScene } from "../scenes/MenuScene.js";
 
-export class MenuScene {
-    constructor(game, context, do_intro = true) {
+export class MatchEndScene {
+    constructor(game, context, c1, c2) {
         this.game = game;
         this.camera_y = 0;
         this.background_animation = new BackgroundAnimation(0);
-        this.title_text = new TitleText();
-
-        this.arcade_button = new Button(context, [0, 46, 78, 29], [0, 0, 78, 29], {x: 100, y: 120}, () => {
-            this.game.currentScene = new CharacterSelectionScene(game, context);
-            this.arcade_button.destroy();
+        this.button = new Button(context, [0, 75 + 46 + 75, 78, 29], [0, 75 + 75, 78, 29], {x: context.canvas.width / 2 - 78 / 2, y: 180}, () => {
+            game.currentScene = new MenuScene(game, context, false);
+            this.button.destroy();
         });
-        this.story_button = new Button(context, [124, 46, 78, 29], [124, 0, 78, 29], {x: 200, y: 120}, () => {
-            console.log('hello!');
-            this.story_button.destroy();
-        });
-
-        if (do_intro)
-            this.startup_time = this.game.frameTime.previous;
-        else
-            this.startup_time = -10000;
+        this.overlay = new CharacterWCharacter(c1, c2);
+        this.text_overlay = new WinnerText(context.canvas.width / 2 - 29 * 3 - 12 * 'GANADOR!'.length / 2.0 + Math.floor(29 / 2.0), Math.floor((context.canvas.height - 58) / 2) - 12);
 
         this.entities = [
             this.background_animation,
-            this.title_text,
-
-            this.arcade_button,
-            this.story_button,
+            this.button,
+            this.overlay,
+            this.text_overlay
         ]
     }
 
@@ -49,12 +42,6 @@ export class MenuScene {
         for (const entity of this.entities){
             entity.update(time, context, this.camera);
         }
-        this.arcade_button.position.y = this.title_text.frame + 150;
-        this.story_button.position.y = this.title_text.frame + 150;
-        if (time.previous > this.startup_time + 2000 && !this.background_animation.on)
-            this.background_animation.activate(time);
-        if (this.background_animation.isActive() && this.background_animation.frame > 14 && !this.title_text.isActive())
-            this.title_text.activate(time);
     }
 
     draw(context) {
