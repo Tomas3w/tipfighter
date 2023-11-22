@@ -68,7 +68,7 @@ export class Fighter{
         this.image = new Image();  
 
         this.shieldImage = new Image();
-        this.shieldImage.src = '/images/sprite_sheets/shield.png';
+        this.shieldImage= document.querySelector('img[alt="shield"]');
 
         this.opponent;
         

@@ -16,6 +16,7 @@ export const Control = {
     LIGHT_KICK: 'lightKick',
     MEDIUM_KICK: 'mediumKick',
     HEAVY_KICK: 'heavyKick',
+    SHIELD: 'shield',
 };
 //para probar controles de gamepad, usar gamepad-tester.com
 export const controls = [
@@ -47,6 +48,7 @@ export const controls = [
             [Control.LIGHT_KICK]: 'KeyF',
             [Control.MEDIUM_KICK]: 'KeyG',
             [Control.HEAVY_KICK]: 'KeyH',
+            [Control.SHIELD]: 'KeyQ',
         }
         
     },
@@ -79,6 +81,7 @@ export const controls = [
             [Control.LIGHT_KICK]: 'KeyJ',
             [Control.MEDIUM_KICK]: 'KeyK',
             [Control.HEAVY_KICK]: 'KeyL',
+            [Control.SHIELD]: 'KeyP',
             
         }
     }
