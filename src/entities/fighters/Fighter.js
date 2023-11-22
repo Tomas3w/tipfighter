@@ -5,10 +5,12 @@ import { FIGHTER_START_DISTANCE,
         PUSH_FRICTION 
 } from '../../constants/fighter.js';
 import {FighterState} from '../../constants/fighter.js'
+import {ShieldState} from '../../constants/shield.js'
 import { STAGE_FLOOR, STAGE_MID_POINT, STAGE_PADDING } from '../../constants/stage.js';
 import { boxOverlap, getActualBoxDimensions, rectsOverlap } from '../../utils/collisions.js';
 import * as control from '../../inputHandler.js';
 import { Control } from '../../constants/control.js';
+import { PushBox, HurtBox} from '../../constants/fighter.js'
 export class Fighter{
 
     //Collision boxes
@@ -27,12 +29,46 @@ export class Fighter{
         this.direction = playerId === 0 ? FighterDirection.RIGHT : FighterDirection.LEFT;
         this.gravity = 0;
         this.frames = new Map();
+        this.shieldFrames = new Map();
+
+        this.shieldFrames = new Map([
+            
+          
+           ['shield-idle-1',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-2',[[[74,287,64,85],[22,88]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-3',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-4',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-5',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-6',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-7',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-8',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-9',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-10',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-11',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-12',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-13',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-14',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+          
+         ]);
+
+        this.animationsShield = {
+            [ShieldState.IDLE]:[
+              ['shield-idle-1',300],['shield-idle-2',300], ['shield-idle-3',300],['shield-idle-4',300],
+              ['shield-idle-5',300],['shield-idle-6',300], ['shield-idle-7',300],['shield-idle-8',300],
+              ['shield-idle-9',300],['shield-idle-10',300], ['shield-idle-11',300],['shield-idle-12',300],
+              ['shield-idle-13',300],['shield-idle-14',300],
+            ],
+           
+          };
         this.animationFrame = 0;
         this.animationTimer = 0;
         this.animations = {};
         //Pagina para ver los codigos del tecado
         //toptalcom developers keycode
         this.image = new Image();  
+
+        this.shieldImage = new Image();
+        this.shieldImage.src = '/images/sprite_sheets/shield.png';
 
         this.opponent;
         
@@ -651,6 +687,27 @@ export class Fighter{
         context.stroke();
     }
 
+    drawShield(context, camera) {
+        const shieldFrameKey = this.animationsShield[ShieldState.IDLE][this.animationFrame][0];
+        const [[
+            [shieldX, shieldY, shieldWidth, shieldHeight],
+            [shieldOriginX, shieldOriginY],
+        ]] = this.shieldFrames.get(shieldFrameKey);
+
+        context.scale(this.direction, 1);
+        context.drawImage(
+            this.shieldImage,
+            shieldX, shieldY,
+            shieldWidth, shieldHeight,
+            Math.floor((this.position.x - camera.position.x) * this.direction) - shieldOriginX,
+            Math.floor(this.position.y - camera.position.y) - shieldOriginY,
+            shieldWidth, shieldHeight
+        );
+        context.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    
+
     draw(context, camera){
         const [frameKey] = this.animations[this.currentState][this.animationFrame];
         const [[
@@ -669,5 +726,6 @@ export class Fighter{
             );
         context.setTransform(1,0,0,1,0,0);
         this.drawDebug(context, camera);
+        this.drawShield(context,camera);
     }
 }
