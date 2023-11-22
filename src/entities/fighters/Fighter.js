@@ -34,20 +34,28 @@ export class Fighter{
         this.shieldFrames = new Map([
             
           
-           ['shield-idle-1',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-2',[[[74,287,64,85],[22,88]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-3',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-4',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-5',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-6',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-7',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-8',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-9',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-10',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-11',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-12',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-13',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-14',[[[0,289,64,83],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-1',[[[1130,5,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-2',[[[74,287,108,103],[22,88]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-3',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-4',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-5',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-6',[[[1130,5,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-7',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-8',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-9',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-10',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-11',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-12',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-13',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-15',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-16',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-17',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-18',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-19',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-20',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-21',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-22',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+           ['shield-idle-23',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
           
          ]);
 
@@ -61,6 +69,7 @@ export class Fighter{
            
           };
         this.animationFrame = 0;
+        this.animationFrameShield = 0;
         this.animationTimer = 0;
         this.animations = {};
         //Pagina para ver los codigos del tecado
@@ -688,12 +697,25 @@ export class Fighter{
     }
 
     drawShield(context, camera) {
-        const shieldFrameKey = this.animationsShield[ShieldState.IDLE][this.animationFrame][0];
+        // Asegúrate de que this.animationFrameShield esté en el rango de 0 a 13
+        
+        
+        
+        const shieldFrameKey = this.animationsShield[ShieldState.IDLE][this.animationFrameShield][0];
+        if(this.animationFrameShield >= 0 && this.animationFrameShield < 13){
+            this.animationFrameShield++;
+        }
+        else{
+            this.animationFrameShield = 0;
+        }
+        
+        console.log(shieldFrameKey);
+    
         const [[
             [shieldX, shieldY, shieldWidth, shieldHeight],
             [shieldOriginX, shieldOriginY],
         ]] = this.shieldFrames.get(shieldFrameKey);
-
+    
         context.scale(this.direction, 1);
         context.drawImage(
             this.shieldImage,
@@ -705,7 +727,6 @@ export class Fighter{
         );
         context.setTransform(1, 0, 0, 1, 0, 0);
     }
-
     
 
     draw(context, camera){
