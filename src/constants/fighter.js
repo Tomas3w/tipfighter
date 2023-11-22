@@ -35,6 +35,8 @@ export const FighterState = {
 
 };
 
+export const ShieldSize = [125, 115];
+
 
 export const FrameDelay = {
    FREEZE: 0,

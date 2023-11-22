@@ -2,7 +2,8 @@ import { FIGHTER_START_DISTANCE,
         FighterDirection,
         FrameDelay, 
         FighterAttackType,
-        PUSH_FRICTION 
+        PUSH_FRICTION,
+        ShieldSize
 } from '../../constants/fighter.js';
 import {FighterState} from '../../constants/fighter.js'
 import {ShieldState} from '../../constants/shield.js'
@@ -29,45 +30,47 @@ export class Fighter{
         this.direction = playerId === 0 ? FighterDirection.RIGHT : FighterDirection.LEFT;
         this.gravity = 0;
         this.frames = new Map();
-        this.shieldFrames = new Map();
 
-        this.shieldFrames = new Map([
+        this.shieldOriginOffset = [45, ShieldSize[1] - 10];
+        // this.shieldFrames = new Map();
+
+        // this.shieldFrames = new Map([
             
           
-           ['shield-idle-1',[[[1130,5,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-2',[[[74,287,108,103],[22,88]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-3',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-4',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-5',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-6',[[[1130,5,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-7',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-8',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-9',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-10',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-11',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-12',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-13',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-15',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-16',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-17',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-18',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-19',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-20',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-21',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-22',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
-           ['shield-idle-23',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-1',[[[1130,5,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-2',[[[74,287,108,103],[22,88]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-3',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-4',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-5',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-6',[[[1130,5,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-7',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-8',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-9',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-10',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-11',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-12',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-13',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-15',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-16',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-17',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-18',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-19',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-20',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-21',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-22',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
+        //    ['shield-idle-23',[[[0,289,108,103],[22,86]],PushBox.IDLE,HurtBox.IDLE]],
           
-         ]);
+        //  ]);
 
-        this.animationsShield = {
-            [ShieldState.IDLE]:[
-              ['shield-idle-1',300],['shield-idle-2',300], ['shield-idle-3',300],['shield-idle-4',300],
-              ['shield-idle-5',300],['shield-idle-6',300], ['shield-idle-7',300],['shield-idle-8',300],
-              ['shield-idle-9',300],['shield-idle-10',300], ['shield-idle-11',300],['shield-idle-12',300],
-              ['shield-idle-13',300],['shield-idle-14',300],
-            ],
-           
-          };
+        // this.animationsShield = {
+        //     [ShieldState.IDLE]:[
+        //       ['shield-idle-1',300],['shield-idle-2',300], ['shield-idle-3',300],['shield-idle-4',300],
+        //       ['shield-idle-5',300],['shield-idle-6',300], ['shield-idle-7',300],['shield-idle-8',300],
+        //       ['shield-idle-9',300],['shield-idle-10',300], ['shield-idle-11',300],['shield-idle-12',300],
+        //       ['shield-idle-13',300],['shield-idle-14',300],
+        //     ],
+        // };
+
         this.animationFrame = 0;
         this.animationFrameShield = 0;
         this.animationTimer = 0;
@@ -80,6 +83,9 @@ export class Fighter{
         this.shieldImage= document.querySelector('img[alt="shield"]');
 
         this.opponent;
+
+        this.shieldFrame = 0;
+        this.shieldLastUpdate = 0;
         
         this.boxes={
            push: {x:0 , y:0, width:0 , height:0},
@@ -574,6 +580,18 @@ export class Fighter{
     }
 
     updateAnimation(time){
+        // actualiza frame del shield
+        // console.log(time.previous, this.shieldLastUpdate)
+        if (time.previous > this.shieldLastUpdate + 30)
+        {
+            console.log(this.shieldFrame);
+            if (this.shieldFrame > 20)
+                this.shieldFrame = 0;
+            else
+                this.shieldFrame += 1;
+            this.shieldLastUpdate = time.previous;
+        }
+
         const animation = this.animations[this.currentState];
         const [,frameDelay] = animation[this.animationFrame];
         if(time.previous <= this.animationTimer + frameDelay)return;
@@ -581,14 +599,11 @@ export class Fighter{
 
         if(frameDelay <= FrameDelay.FREEZE) return;
         this.animationFrame ++;
-        
-        
     
-        //para que se reinicie el bucle del frame
+        // para que se reinicie el bucle del frame
         if(this.animationFrame >= animation.length) this.animationFrame =0;
         
         this.boxes = this.getBoxes(animation[this.animationFrame][0]);
-           
         
     }
 
@@ -697,24 +712,12 @@ export class Fighter{
     }
 
     drawShield(context, camera) {
-        // Asegúrate de que this.animationFrameShield esté en el rango de 0 a 13
-        
-        
-        
-        const shieldFrameKey = this.animationsShield[ShieldState.IDLE][this.animationFrameShield][0];
-        if(this.animationFrameShield >= 0 && this.animationFrameShield < 13){
-            this.animationFrameShield++;
-        }
-        else{
-            this.animationFrameShield = 0;
-        }
-        
-        console.log(shieldFrameKey);
-    
-        const [[
-            [shieldX, shieldY, shieldWidth, shieldHeight],
-            [shieldOriginX, shieldOriginY],
-        ]] = this.shieldFrames.get(shieldFrameKey);
+        const shieldX = this.shieldFrame * ShieldSize[0];
+        const shieldY = 0;
+        const shieldWidth = ShieldSize[0];
+        const shieldHeight = ShieldSize[1];
+        const shieldOriginX = this.shieldOriginOffset[0];
+        const shieldOriginY = this.shieldOriginOffset[1];
     
         context.scale(this.direction, 1);
         context.drawImage(
