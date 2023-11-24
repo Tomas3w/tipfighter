@@ -16,10 +16,11 @@ import { TitleText } from "../entities/TitleText.js";
 import { Button } from "../entities/Button.js";
 import { CharacterWCharacter } from "../entities/overlays/CharacterWCharacter.js";
 import { WinnerText } from "../entities/overlays/WinnerText.js";
+import { EmpateText } from "../entities/overlays/EmpateText.js";
 import { MenuScene } from "../scenes/MenuScene.js";
 
 export class MatchEndScene {
-    constructor(game, context, c1, c2) {
+    constructor(game, context, c1, c2, es_empate = false) {
         this.game = game;
         this.camera_y = 0;
         this.background_animation = new BackgroundAnimation(0);
@@ -28,7 +29,10 @@ export class MatchEndScene {
             this.button.destroy();
         });
         this.overlay = new CharacterWCharacter(c1, c2);
-        this.text_overlay = new WinnerText(context.canvas.width / 2 - 29 * 3 - 12 * 'GANADOR!'.length / 2.0 + Math.floor(29 / 2.0), Math.floor((context.canvas.height - 58) / 2) - 12);
+        if (es_empate)
+            this.text_overlay = new EmpateText(context.canvas.width / 2 - 12 * 'EMPATE!'.length / 2.0 + 3, Math.floor((context.canvas.height - 58) / 2) - 12);
+        else
+            this.text_overlay = new WinnerText(context.canvas.width / 2 - 29 * 3 - 12 * 'GANADOR!'.length / 2.0 + Math.floor(29 / 2.0), Math.floor((context.canvas.height - 58) / 2) - 12);
 
         this.entities = [
             this.background_animation,

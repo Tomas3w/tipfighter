@@ -12,6 +12,15 @@ export const FighterAttackType = {
    KICK: 'kick',
 };
 
+export const FighterIdFromName = {
+   'Tomas': 0,
+   'Milton': 1,
+   'Joaquin': 2,
+   'Jesus': 3,
+   'Maximiliano': 4,
+   'Bernardo': 5,
+};
+
 export const FighterState = {
    IDLE: 'idle',
    WALK_FORWARD: 'walkForwards',

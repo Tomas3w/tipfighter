@@ -592,6 +592,7 @@ export class Fighter{
             const hurtName = ['head','body','feet'];
 
             console.log(`${this.name} has hit ${this.opponent.name} ${hurtName[hurtIndex]}`)
+            // this.opponent.quitarVida(1);
         }
     }
     //para seleccionar los frames en el gimp, poner los valores de posicion por ej 7 ,14 que es el punto de arriba a la izq y 
