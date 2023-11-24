@@ -41,7 +41,7 @@ export class CharacterSelectionScene {
             entity.update(time, context, this.camera);
         }
 		if (this.background_animation.isDone(time))
-			this.game.currentScene = new BattleScene(this.game, context);
+			this.game.currentScene = new BattleScene(this.game, context, this.selector.c1, this.selector.c2);
     }
 
     draw(context) {
