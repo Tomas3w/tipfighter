@@ -4,6 +4,7 @@ import {Tomas} from "../entities/fighters/Tomas.js";
 import {Joaquin} from "../entities/fighters/Joaquin.js";
 import {Milton} from "../entities/fighters/Milton.js";
 import {Jesus} from "../entities/fighters/Jesus.js";
+// import {Maximiliano} from "../entities/fighters/Maximiliano.js";
 import {Stage} from "../entities/Stage.js";
 import {FpsCounter} from "../entities/FpsCounter.js";
 import { STAGE_MID_POINT, STAGE_PADDING} from "../constants/stage.js";
@@ -15,12 +16,20 @@ import { getContext } from "../utils/context.js";
 import { MatchEndScene } from "./MatchEndScene.js";
 import { FighterIdFromName } from "../constants/fighter.js";
 
+const FighterClasses = [
+    Tomas,
+    Milton,
+    Joaquin,
+    Jesus,
+    undefined,
+    undefined,
+];
+
 export class BattleScene {
-    constructor(game, context) {
+    constructor(game, context, c1, c2) {
         this.game = game;
         this.fighters = [
-            new Tomas(0), new Jesus(1),
-          //  new Tomas(150,STAGE_FLOOR,FighterDirection.LEFT,1),
+            new FighterClasses[c1](0), new FighterClasses[c2](1),
         ]
         
         this.fighters[0].opponent = this.fighters[1];
