@@ -15,6 +15,8 @@ export class StatusBar{
         this.frames = new Map([
             // ['health-bar',[16,18,145,11]],
             ['health-bar',[6,218,376,35]],
+            ['health-bar-background',[6,255,376,35]],
+            ['energy-bar',[362,236,134,9]],
 
             ['ko-white',[161,16,32,14]],
 
@@ -43,6 +45,8 @@ export class StatusBar{
             //name tags
             ['tag-ken',[128,56,30,9]],
             ['tag-ryu',[16,56,28,9]],
+            ['tag-tomas',[56,56,48,9]],
+            ['tag-jesus',[168,56,43,9]],
 
         ]);
 
@@ -75,16 +79,28 @@ export class StatusBar{
     }
 
     drawHealthBars(context){
-        this.drawFrame(context,'health-bar', (context.canvas.width - this.frames.get('health-bar')[2]) / 2, 10);
-        // this.drawFrame(context,'ko-white',176,18);
-        // this.drawFrame(context,'health-bar',353,20,-1);
+        this.drawFrame(context, 'health-bar-background', (context.canvas.width - this.frames.get('health-bar-background')[2]) / 2, 10);
+        let rect1 = [...this.frames.get('health-bar')];
+        let rect2 = [...this.frames.get('health-bar')];
+        const max_x = 177;
+        const min_x = 29;
+        rect1[2] = (max_x - min_x) * (this.fighters[0].life / 100) + min_x;
+        rect2[2] = (max_x - min_x) * (this.fighters[1].life / 100) + min_x;
+        drawFrame(context, this.image, rect1, (context.canvas.width - this.frames.get('health-bar')[2]) / 2, 10, 1);
+        drawFrame(context, this.image, rect2, (context.canvas.width - this.frames.get('health-bar')[2]) / 2 + this.frames.get('health-bar')[2], 10, -1);
+        let rect_e1 = [...this.frames.get('energy-bar')];
+        let rect_e2 = [...this.frames.get('energy-bar')];
+        rect_e1[2] = (rect_e1[2] - 3) * (this.fighters[0].energy / 100) + 2;
+        drawFrame(context, this.image, rect_e1, 40, 28, 1);
+        rect_e2[2] = (rect_e2[2] - 3) * (this.fighters[1].energy / 100) + 2;
+        drawFrame(context, this.image, rect_e2, 344, 28, -1);
     }
 
     drawNameTags(context){
         const [name1,name2] = this.names;
 
-        this.drawFrame(context,name1, 4,43);
-        this.drawFrame(context,name2,350,43);
+        this.drawFrame(context, name1, 4, 43);
+        this.drawFrame(context, name2, 380 - this.frames.get(name2)[2], 43);
     }
 
     drawTime(context){

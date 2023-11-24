@@ -3,7 +3,7 @@ import {FighterState, FrameDelay} from '../../constants/fighter.js'
 import {ShieldState} from '../../constants/shield.js'
 export class Tomas extends Fighter {
   constructor(playerId){
-    super('Ryu',playerId);
+    super('Tomas',playerId);
       this.image = document.querySelector('img[alt="tomas"]');
 
 

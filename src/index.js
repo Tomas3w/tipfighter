@@ -6,14 +6,12 @@ import { StreetFighterGame } from "./StreetFighterGame.js";
 
 
 
-
-
 // el punto medio del canvas es 192,112
 window.addEventListener('load', function (){
 
     
-
-    new StreetFighterGame().start();
+    window.app = new StreetFighterGame();
+    app.start();
 
 
    
