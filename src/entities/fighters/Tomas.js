@@ -71,7 +71,8 @@ export class Tomas extends Fighter {
         //light punch (los personajes solo tienen este golpe)
        
         ['light-punch-1',[[[0,873,28,78],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['light-punch-2',[[[62,873,49,38],[23,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[8,-70,19,8]]],
+        ['light-punch-2',[[[61,873,49,78],[23,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[8,-70,19,8]]],
+        ['light-punch-3',[[[123,873,49,78],[23,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
         ['med-punch-1',[[[517,1149,60,94],[28,91]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['med-punch-2',[[[650,1148,74,95],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
@@ -83,6 +84,7 @@ export class Tomas extends Fighter {
        
         ['light-kick-1',[[[12,704,25,79],[22,86]],this.PushBox.IDLE,[[-33,-96,30,18],[-41,-79,42,38],[-32,-52,44,50]]]],
         ['light-kick-2',[[[66,704,49,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[10,-47,16,8]]],
+        ['light-kick-3',[[[66,704,49,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
         ['med-kick-1',[[[143,1565,114,92],[68,93]],this.PushBox.IDLE,[[-65,-96,30,18],[-57,-79,42,38],[-32,-52,44,50]]]],
         //coso
@@ -119,13 +121,13 @@ export class Tomas extends Fighter {
 
         ],
         [FighterState.LIGHT_PUNCH]:[
-          ['light-punch-1',33],['light-punch-2',66],
-          ['light-punch-1',66],['light-punch-1',FrameDelay.TRANSITION],
+          ['light-punch-1',250],['light-punch-2',100],
+          ['light-punch-3',33],['light-punch-1',FrameDelay.TRANSITION],
         
         ],
         [FighterState.LIGHT_KICK]:[
           ['light-kick-1',33],['light-kick-2',33],
-          ['light-kick-2',66],['light-kick-2',FrameDelay.TRANSITION],
+          ['light-kick-3',66],['light-kick-3',FrameDelay.TRANSITION],
         
         ],
         [FighterState.JUMP_FORWARD]:[

@@ -33,7 +33,7 @@ export class Fighter{
 
         this.life = 100;
         this.energy = 100;
-        this.has_hit = false;
+        this.hasHit = false;
 
         this.shieldOriginOffset = [45, ShieldSize[1] - 10];
 
@@ -240,7 +240,8 @@ export class Fighter{
 
          this.states[this.currentState].init();
 
-         this.has_hit = false;
+         this.hasHit = false;
+         // console.log('un volcan');
     }
 
     handleIdleInit(){
@@ -577,7 +578,7 @@ export class Fighter{
 
     updateAttackBoxCollided(time){
         if(!this.states[this.currentState].attackType) return;
-        if (this.has_hit) return;
+        if (this.hasHit) return;
 
         const actualHitBox = getActualBoxDimensions(this.position,this.direction,this.boxes.hit);
 
@@ -590,14 +591,15 @@ export class Fighter{
                 {x,y,width,height},
             );
 
-            if(!boxOverlap(actualHitBox,actualOpponentHurtBox)) return;
+            if(!boxOverlap(actualHitBox,actualOpponentHurtBox)) continue;
 
             const hurtIndex = this.opponent.boxes.hurt.indexOf(hurt);
             const hurtName = ['head','body','feet'];
 
-            console.log(`${this.name} has hit ${this.opponent.name} ${hurtName[hurtIndex]}`)
-            this.has_hit = true;
+            // console.log(`${this.name} has hit ${this.opponent.name} ${hurtName[hurtIndex]}`)
+            this.hasHit = true;
             this.opponent.golpear(1);
+            break; // esto garantiza que solo una parte del cuerpo se haya golpeado
         }
     }
 
@@ -605,6 +607,7 @@ export class Fighter{
         let multiplier = 1;
         if (this.velocity.x < 0)
             multiplier = 1 / 4;
+        // console.log(`feli ${danio * multiplier}`)
         this.life -= danio * multiplier;
     }
 
@@ -619,6 +622,9 @@ export class Fighter{
         this.updateAnimation(time);
         this.updateStageConstraints(time,context,camera);
         this.updateAttackBoxCollided(time);
+
+        if (this.animationFrame == 0)
+            this.hasHit = false;
     }
 
     drawDebugBox(context, camera, dimensions, baseColor){
