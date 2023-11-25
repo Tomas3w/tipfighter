@@ -33,6 +33,7 @@ export class Fighter{
 
         this.life = 100;
         this.energy = 100;
+        this.has_hit = false;
 
         this.shieldOriginOffset = [45, ShieldSize[1] - 10];
 
@@ -238,6 +239,8 @@ export class Fighter{
          this.animationFrame = 0;
 
          this.states[this.currentState].init();
+
+         this.has_hit = false;
     }
 
     handleIdleInit(){
@@ -574,6 +577,7 @@ export class Fighter{
 
     updateAttackBoxCollided(time){
         if(!this.states[this.currentState].attackType) return;
+        if (this.has_hit) return;
 
         const actualHitBox = getActualBoxDimensions(this.position,this.direction,this.boxes.hit);
 
@@ -592,9 +596,18 @@ export class Fighter{
             const hurtName = ['head','body','feet'];
 
             console.log(`${this.name} has hit ${this.opponent.name} ${hurtName[hurtIndex]}`)
-            // this.opponent.quitarVida(1);
+            this.has_hit = true;
+            this.opponent.golpear(1);
         }
     }
+
+    golpear(danio) {
+        let multiplier = 1;
+        if (this.velocity.x < 0)
+            multiplier = 1 / 4;
+        this.life -= danio * multiplier;
+    }
+
     //para seleccionar los frames en el gimp, poner los valores de posicion por ej 7 ,14 que es el punto de arriba a la izq y 
     //el tamaño 
     update(time,context,camera){ 
