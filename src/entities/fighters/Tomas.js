@@ -67,6 +67,12 @@ export class Tomas extends Fighter {
         //crouch turn
         ['crouch-turn-1',[[[18,447,32,69],[22,86]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
         ['crouch-turn-2',[[[424,802,52,61],[27,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+
+        //crouch walk
+        ['crouch-forwards-1',[[[18,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-forwards-2',[[[91,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-backwards-1',[[[18,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-backwards-2',[[[91,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
       
         //light punch (los personajes solo tienen este golpe)
        
@@ -107,6 +113,12 @@ export class Tomas extends Fighter {
         ],
         [FighterState.WALK_BACKWARD]:[
           ['backwards-1',350],['backwards-2',350],
+        ],
+        [FighterState.CROUCH_WALK_FORWARD]: [
+          ['crouch-forwards-1',350],['crouch-forwards-2',350],
+        ],
+        [FighterState.CROUCH_WALK_BACKWARD]:[
+          ['crouch-backwards-1',350],['crouch-backwards-2',350],
         ],
         [FighterState.JUMP_START]:[
           ['jump-up-1',1],  ['jump-up-1',FrameDelay.TRANSITION]
@@ -167,6 +179,8 @@ export class Tomas extends Fighter {
         x:{
           [FighterState.WALK_FORWARD]:3 * 60,
           [FighterState.WALK_BACKWARD]:- (2*60),
+          [FighterState.CROUCH_WALK_FORWARD]:3 * 60,
+          [FighterState.CROUCH_WALK_BACKWARD]:- (2*60),
           [FighterState.JUMP_FORWARD]:((48*3)+(12*2)),
           [FighterState.JUMP_BACKWARD]:-((45*4)+(15*3)),
         },

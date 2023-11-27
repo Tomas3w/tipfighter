@@ -25,6 +25,8 @@ export const FighterState = {
    IDLE: 'idle',
    WALK_FORWARD: 'walkForwards',
    WALK_BACKWARD: 'walkBackwards',
+   CROUCH_WALK_FORWARD: 'crouchWalkForwards',
+   CROUCH_WALK_BACKWARD: 'crouchWalkBackwards',
    JUMP_START: 'jumpStart',
    JUMP_UP: 'jumpUp',
    JUMP_FORWARD:'jumpFowards',
