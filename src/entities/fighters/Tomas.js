@@ -8,20 +8,22 @@ export class Tomas extends Fighter {
 
 
       this.PushBox = {
-        IDLE: [-22,-87,28,79],
+        IDLE: [-14,-87,28,79],
         JUMP: [-16,-91,32,66],
-        BEND: [-26,-77,32,70],
-        CROUCH: [-50,-120,32,50],
+        BEND: [-16,-77,32,70],
+        CROUCH: [-16,-120,32,50],
+        CROUCHKICK: [-16,-47,32,40],
      }
      
      this.HurtBox = {
-        IDLE:[[-15,-86,14,16],[-22,-70,27,34],[-18,-36,20,28]],
+        IDLE:[[-5,-86,14,16],[-12,-70,27,34],[-8,-36,20,28]],
         BACKWARD:[[-19,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
         FORWARD:[[-3,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
         JUMP:[[-13,-106,28,18],[-16,-53,40,42],[-22,-66,38,18]],
-        BEND:[[-18,-76,14,16],[-26,-60,32,34],[-20,-30,24,22]],
+        BEND:[[-8,-76,14,16],[-16,-60,32,34],[-10,-30,24,22]],
         CROUCH:[[6,-61,24,18],[-16,-46,44,24],[-16,-24,44,24]],
         PUNCH:[[11,-94,24,18],[-7,-77,40,43],[-7,-33,40,33]],
+        CROUCHKICK:[[-8,-46,14,16],[-16,-40,32,14],[-10,-30,24,22]],
      };
 
      this.Shield = {
@@ -33,52 +35,59 @@ export class Tomas extends Fighter {
       this.frames = new Map([
          //idle stance
        
-        ['idle-1',[[[0,350,28,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['idle-2',[[[38,349,28,80],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-1',[[[0,350,28,79],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-2',[[[38,349,28,80],[12,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
-        ['forwards-1',[[[9,785,28,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-2',[[[65,785,32,79],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['forwards-1',[[[9,785,28,79],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['forwards-2',[[[65,785,32,79],[12,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
-        ['backwards-2',[[[9,785,28,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['backwards-1',[[[65,785,32,79],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['backwards-2',[[[9,785,28,79],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['backwards-1',[[[65,785,32,79],[12,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
-        ['jump-up-1',[[[18,447,32,69],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['jump-up-2',[[[91,437,27,79],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-up-1',[[[18,447,32,69],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-up-2',[[[91,437,27,79],[12,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
         ['jump-kick-1',[[[346,688,60,89],[34,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['jump-kick-2',[[[2,687,59,90],[33,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['jump-kick-3',[[[2,687,59,90],[33,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
 
-        ['crouch-1',[[[17,12,33,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-2',[[[91,11,32,70],[25,77]],this.PushBox.BEND,this.HurtBox.BEND]],
-      
-        
-        ['jump-land',[[[18,447,32,69],[22,84]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['crouch-1',[[[17,12,33,69],[11,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-2',[[[90,11,32,70],[11,77]],this.PushBox.BEND,this.HurtBox.BEND]],
+
+        ['crouch-punch-1',[[[20,273,29,69],[8,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-punch-2',[[[93,273,43,69],[8,76]],this.PushBox.BEND,this.HurtBox.BEND,[14,-60,22,8]]],
+        ['crouch-punch-3',[[[164,273,32,69],[10,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+
+        ['crouch-kick-1',[[[19,130,31,38],[8,45]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK]],
+        ['crouch-kick-2',[[[92,130,44,38],[8,45]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK,[14,-20,26,8]]],
+        ['crouch-kick-3',[[[165,130,32,38],[8,45]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK]],
+              
+        ['jump-land',[[[18,447,32,69],[12,84]],this.PushBox.IDLE,this.HurtBox.IDLE]],
           
         //stand turn
         ['idle-turn-1',[[[420,682,54,95],[29,92]],this.PushBox.IDLE,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
         ['idle-turn-2',[[[488,678,58,98],[30,95]],this.PushBox.IDLE,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
         ['idle-turn-3',[[[560,683,54,94],[27,90]],this.PushBox.IDLE,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
         
-        ['jump-roll-1',[[[18,447,32,69],[22,86]],this.PushBox.JUMP,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
-        ['jump-roll-2',[[[18,447,32,69],[22,86]],this.PushBox.JUMP,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        ['jump-roll-1',[[[18,447,32,69],[12,86]],this.PushBox.JUMP,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        ['jump-roll-2',[[[18,447,32,69],[12,86]],this.PushBox.JUMP,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
 
         //crouch turn
-        ['crouch-turn-1',[[[18,447,32,69],[22,86]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        ['crouch-turn-1',[[[18,447,32,69],[12,86]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
         ['crouch-turn-2',[[[424,802,52,61],[27,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
 
         //crouch walk
-        ['crouch-forwards-1',[[[18,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-forwards-2',[[[91,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-backwards-1',[[[18,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-backwards-2',[[[91,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-forwards-1',[[[18,186,32,69],[11,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-forwards-2',[[[91,186,32,69],[11,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-backwards-1',[[[18,186,32,69],[11,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-backwards-2',[[[91,186,32,69],[11,76]],this.PushBox.BEND,this.HurtBox.BEND]],
       
         //light punch (los personajes solo tienen este golpe)
        
-        ['light-punch-1',[[[0,873,28,78],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['light-punch-2',[[[61,873,49,78],[23,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[8,-70,19,8]]],
-        ['light-punch-3',[[[123,873,49,78],[23,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-1',[[[0,873,28,78],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-2',[[[61,873,49,78],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[14,-70,23,8]]],
+        ['light-punch-3',[[[123,873,49,78],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
         ['med-punch-1',[[[517,1149,60,94],[28,91]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['med-punch-2',[[[650,1148,74,95],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
@@ -88,9 +97,9 @@ export class Tomas extends Fighter {
        
         //light kick (los personajes solo tienen esta patada)
        
-        ['light-kick-1',[[[12,704,25,79],[22,86]],this.PushBox.IDLE,[[-33,-96,30,18],[-41,-79,42,38],[-32,-52,44,50]]]],
-        ['light-kick-2',[[[66,704,49,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[10,-47,16,8]]],
-        ['light-kick-3',[[[66,704,49,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-kick-1',[[[12,704,25,79],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-kick-2',[[[66,704,49,79],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[13,-47,24,8]]],
+        ['light-kick-3',[[[66,704,49,79],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
         ['med-kick-1',[[[143,1565,114,92],[68,93]],this.PushBox.IDLE,[[-65,-96,30,18],[-57,-79,42,38],[-32,-52,44,50]]]],
         //coso
@@ -120,6 +129,12 @@ export class Tomas extends Fighter {
         [FighterState.CROUCH_WALK_BACKWARD]:[
           ['crouch-backwards-1',350],['crouch-backwards-2',350],
         ],
+        [FighterState.CROUCH_PUNCH]:[
+          ['crouch-punch-1',250],['crouch-punch-2',100],['crouch-punch-3',33],['crouch-punch-3',FrameDelay.TRANSITION]
+        ],
+        [FighterState.CROUCH_KICK]:[
+          ['crouch-kick-1',350],['crouch-kick-2',100],['crouch-kick-3',33],['crouch-kick-3',FrameDelay.TRANSITION]
+        ],
         [FighterState.JUMP_START]:[
           ['jump-up-1',1],  ['jump-up-1',FrameDelay.TRANSITION]
         
@@ -129,7 +144,7 @@ export class Tomas extends Fighter {
         
         ],
         [FighterState.JUMP_UP]:[
-          ['jump-up-1',250],['jump-up-1',150],['jump-up-2',200],['jump-up-2',200],['jump-up-2',-1],
+          ['jump-up-1',250],['jump-up-1',150],['jump-up-2',200],['jump-up-2',200],['jump-up-2',FrameDelay.TRANSITION],
 
         ],
         [FighterState.LIGHT_PUNCH]:[
@@ -138,21 +153,22 @@ export class Tomas extends Fighter {
         
         ],
         [FighterState.LIGHT_KICK]:[
-          ['light-kick-1',33],['light-kick-2',33],
+          ['light-kick-1',250],['light-kick-2',100],
           ['light-kick-3',66],['light-kick-3',FrameDelay.TRANSITION],
         
         ],
         [FighterState.JUMP_FORWARD]:[
-          ['jump-roll-1',100],['jump-roll-2',50],
-          ['jump-roll-2',0],
+          ['jump-up-1',250],['jump-up-1',150],['jump-up-2',200],['jump-up-2',200],['jump-up-2',FrameDelay.TRANSITION],
+          // ['jump-roll-1',100],['jump-roll-2',50],
+          // ['jump-roll-2',0],
         ],
         [FighterState.JUMP_BACKWARD]:[
-          ['jump-roll-1',100],['jump-roll-2',50],
-          ['jump-roll-2',0],
+          ['jump-up-1',250],['jump-up-1',150],['jump-up-2',200],['jump-up-2',200],['jump-up-2',FrameDelay.TRANSITION],
+          // ['jump-roll-1',100],['jump-roll-2',50],
+          // ['jump-roll-2',0],
         ],
         [FighterState.CROUCH]:[
-          ['crouch-2',FrameDelay.FREEZE],
-        
+          ['crouch-1',300],['crouch-2',300],
         ],
         [FighterState.CROUCH_DOWN]:[
           ['crouch-1',50],['crouch-2',FrameDelay.TRANSITION],

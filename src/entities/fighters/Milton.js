@@ -2,19 +2,19 @@ import {Fighter} from './Fighter.js';
 import {FighterState, FrameDelay} from '../../constants/fighter.js'
 export class Milton extends Fighter {
   constructor(playerId){
-    super('Ken',playerId);
+    super('Milton',playerId);
       this.image = document.querySelector('img[alt="milton"]');
 
 
       this.PushBox = {
-        IDLE: [-24,-87,20,70],
+        IDLE: [-10,-77,20,70],
         JUMP: [-16,-91,32,66],
         BEND: [-26,-77,32,70],
         CROUCH: [-50,-120,32,50],
      }
      
      this.HurtBox = {
-        IDLE:[[-20,-86,14,15],[-25,-70,22,34],[-26,-38,20,22]],
+        IDLE:[[-7,-80,14,15],[-11,-66,22,28],[-10,-38,20,22]],
         BACKWARD:[[-19,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
         FORWARD:[[-3,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
         JUMP:[[-13,-106,28,18],[-16,-53,40,42],[-22,-66,38,18]],
@@ -26,17 +26,8 @@ export class Milton extends Fighter {
       this.frames = new Map([
          //idle stance
        
-        ['idle-1',[[[2,345,32,71],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['idle-2',[[[48,344,32.,72],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-
-        ['forwards-1',[[[7,778,27,68],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-2',[[[57,778,28,68],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-3',[[[106,778,31,67],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-4',[[[152,778,32,66],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-5',[[[200,778,31,67],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-6',[[[253,778,28,68],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-7',[[[306,778,27,68],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-8',[[[356,778,28,68],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-1',[[[2,345,32,71],[18,77]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-2',[[[48,344,32,72],[18,78]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
         ['backwards-8',[[[7,778,27,68],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['backwards-7',[[[57,778,28,68],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
@@ -48,7 +39,6 @@ export class Milton extends Fighter {
         ['backwards-1',[[[356,778,28,68],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
         ['jump-up-1',[[[7,453,24,57],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['jump-up-2',[[[45,438,29,72],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
         ['jump-kick-1',[[[346,688,60,89],[34,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['jump-kick-2',[[[2,687,59,90],[33,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
@@ -70,9 +60,9 @@ export class Milton extends Fighter {
 
 
         //crouch turn
-        ['crouch-turn-1',[[[356,802,53,61],[26,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
-        ['crouch-turn-2',[[[424,802,52,61],[27,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
-        ['crouch-turn-3',[[[486,802,53,61],[29,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        // ['crouch-turn-1',[[[356,802,53,61],[26,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        // ['crouch-turn-2',[[[424,802,52,61],[27,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        // ['crouch-turn-3',[[[486,802,53,61],[29,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
 
         //light punch (los personajes solo tienen este golpe)
        
@@ -100,6 +90,10 @@ export class Milton extends Fighter {
         
        
       ]);
+      for (let i = 1; i <= 8; i++)
+        this.frames.set('forwards-' + i, [[[(i - 1) * 50,765,39,89],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]);
+      for (let i = 1; i <= 5; i++)
+        this.frames.set('jump-' + i, [[[(i - 1) * 67,433,59,86],[27,86]],this.PushBox.IDLE,this.HurtBox.IDLE]);
 
       this.animations = {
         [FighterState.IDLE]:[
@@ -111,26 +105,26 @@ export class Milton extends Fighter {
         
         ],
         [FighterState.CROUCH_TURN]:[
-          ['crouch-turn-1',33],['crouch-turn-2',33],
-          ['crouch-turn-1',33],['crouch-turn-1',FrameDelay.TRANSITION],
+          ['crouch-1',33],['crouch-2',33],
+          ['crouch-1',33],['crouch-1',FrameDelay.TRANSITION],
         
         ],
         [FighterState.WALK_FORWARD]: [
-          ['forwards-1',350],['forwards-2',350],
+          ['forwards-1',50],['forwards-2',50],['forwards-3',50],['forwards-4',50],['forwards-5',50],['forwards-6',50],['forwards-7',50],['forwards-8',50],
         ],
         [FighterState.WALK_BACKWARD]:[
-          ['backwards-1',350],['backwards-2',350],
+          ['forwards-8',50],['forwards-7',50],['forwards-6',50],['forwards-5',50],['forwards-4',50],['forwards-3',50],['forwards-2',50],['forwards-1',50],
         ],
         [FighterState.JUMP_START]:[
-          ['jump-land',50],  ['jump-land',FrameDelay.TRANSITION]
+          ['jump-1',50],  ['jump-1',FrameDelay.TRANSITION]
         
         ],
         [FighterState.JUMP_LAND]:[
-          ['jump-land',33],  ['jump-land',117],['jump-land',FrameDelay.TRANSITION], 
+          ['jump-5',33],  ['jump-5',117],['jump-5',FrameDelay.TRANSITION], 
         
         ],
         [FighterState.JUMP_UP]:[
-          ['jump-up-1',250],['jump-up-1',150],['jump-up-2',200],['jump-up-2',200],['jump-up-2',-1],
+          ['jump-1',10],['jump-2',200],['jump-3',200],['jump-4',200],['jump-5',FrameDelay.TRANSITION],
 
         ],
         [FighterState.LIGHT_PUNCH]:[

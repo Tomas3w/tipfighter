@@ -34,6 +34,8 @@ export class Fighter{
         this.life = 100;
         this.energy = 100;
         this.hasHit = false;
+        this.shieldActivated = false;
+        this.requestAnimationTimerReset = true;
 
         this.shieldOriginOffset = [45, ShieldSize[1] - 10];
 
@@ -70,6 +72,7 @@ export class Fighter{
                     FighterState.CROUCH_WALK_FORWARD,FighterState.CROUCH_WALK_BACKWARD,
                     FighterState.JUMP_UP,FighterState.JUMP_FORWARD,FighterState.JUMP_BACKWARD,
                     FighterState.CROUCH_UP, FighterState.JUMP_LAND, FighterState.IDLE_TURN,
+                    FighterState.CROUCH_PUNCH, FighterState.CROUCH_KICK,
                     FighterState.LIGHT_PUNCH, FighterState.MEDIUM_PUNCH,FighterState.HEAVY_PUNCH,
                     FighterState.LIGHT_KICK,FighterState.MEDIUM_KICK,FighterState.HEAVY_KICK,
                 ],
@@ -135,17 +138,17 @@ export class Fighter{
             [FighterState.CROUCH]:{
                 init: () => {},
                 update: this.handleCrouchState.bind(this),
-                validFrom: [FighterState.CROUCH_DOWN,FighterState.CROUCH_TURN,FighterState.CROUCH_WALK_FORWARD,FighterState.CROUCH_WALK_BACKWARD],
+                validFrom: [FighterState.CROUCH_DOWN,FighterState.CROUCH_TURN,FighterState.CROUCH_WALK_FORWARD,FighterState.CROUCH_WALK_BACKWARD,FighterState.CROUCH_PUNCH,FighterState.CROUCH_KICK],
             },
             [FighterState.CROUCH_DOWN]:{
                 init: this.handleCrouchDownInit.bind(this),
                 update: this.handleCrouchDownState.bind(this),
-                validFrom: [FighterState.IDLE,FighterState.WALK_FORWARD,FighterState.WALK_BACKWARD,FighterState.CROUCH_WALK_FORWARD,FighterState.CROUCH_WALK_BACKWARD],
+                validFrom: [FighterState.IDLE,FighterState.WALK_FORWARD,FighterState.WALK_BACKWARD,FighterState.CROUCH_WALK_FORWARD,FighterState.CROUCH_WALK_BACKWARD,FighterState.CROUCH_PUNCH,FighterState.CROUCH_KICK],
             },
             [FighterState.CROUCH_UP]:{
                 init: () => {},
                 update:this.handleCrouchUpState.bind(this),
-                validFrom: [FighterState.CROUCH,FighterState.CROUCH_WALK_FORWARD,FighterState.CROUCH_WALK_BACKWARD],
+                validFrom: [FighterState.CROUCH,FighterState.CROUCH_WALK_FORWARD,FighterState.CROUCH_WALK_BACKWARD,FighterState.CROUCH_PUNCH,FighterState.CROUCH_KICK],
             },
             [FighterState.IDLE_TURN]:{
                 init: () => {},
@@ -160,11 +163,23 @@ export class Fighter{
                 update:this.handleCrouchTurnState.bind(this),
                 validFrom: [FighterState.CROUCH],
             },
+            [FighterState.CROUCH_PUNCH]:{
+                attackType: FighterAttackType.PUNCH,
+                init: this.handleStandardLightAttackInit.bind(this),
+                update:this.handleCrouchPunchState.bind(this),
+                validFrom: [FighterState.CROUCH,FighterState.CROUCH_DOWN,FighterState.CROUCH_WALK_FORWARD,FighterState.CROUCH_WALK_BACKWARD],
+            },
+            [FighterState.CROUCH_KICK]:{
+                attackType: FighterAttackType.KICK,
+                init: this.handleStandardLightAttackInit.bind(this),
+                update:this.handleCrouchKickState.bind(this),
+                validFrom: [FighterState.CROUCH,FighterState.CROUCH_DOWN,FighterState.CROUCH_WALK_FORWARD,FighterState.CROUCH_WALK_BACKWARD],
+            },
             [FighterState.LIGHT_PUNCH]:{
                 attackType: FighterAttackType.PUNCH,
                 init: this.handleStandardLightAttackInit.bind(this),
                 update:this.handleLightPunchState.bind(this),
-                validFrom: [FighterState.IDLE,FighterState.WALK_FORWARD,FighterState.WALK_BACKWARD],
+                validFrom: [FighterState.IDLE,FighterState.WALK_FORWARD,FighterState.WALK_BACKWARD,FighterState.JUMP_UP,FighterState.JUMP_FORWARD,FighterState.JUMP_BACKWARD],
             },
             [FighterState.MEDIUM_PUNCH]:{
                 attackType: FighterAttackType.PUNCH,
@@ -182,7 +197,7 @@ export class Fighter{
                 attackType: FighterAttackType.KICK,
                 init: this.handleStandardLightAttackInit.bind(this),
                 update:this.handleLightKickState.bind(this),
-                validFrom: [FighterState.IDLE,FighterState.WALK_FORWARD,FighterState.WALK_BACKWARD],
+                validFrom: [FighterState.IDLE,FighterState.WALK_FORWARD,FighterState.WALK_BACKWARD,FighterState.JUMP_UP,FighterState.JUMP_FORWARD,FighterState.JUMP_BACKWARD],
             },
             [FighterState.MEDIUM_KICK]:{
                 attackType: FighterAttackType.KICK,
@@ -252,11 +267,12 @@ export class Fighter{
         
          this.currentState = newState;
          this.animationFrame = 0;
+         this.requestAnimationTimerReset = true;
 
          this.states[this.currentState].init();
 
          this.hasHit = false;
-         // console.log('un volcan');
+         // if (this.playerId === 0) console.log('un volcan', this.currentState);
     }
 
     handleIdleInit(){
@@ -303,9 +319,12 @@ export class Fighter{
         if(!control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_UP);
         else if(control.isForward(this.playerId,this.direction)){
             this.changeState(FighterState.CROUCH_WALK_FORWARD);
-        }
-        else if(control.isBackward(this.playerId,this.direction)) {
+        } else if(control.isBackward(this.playerId,this.direction)) {
             this.changeState(FighterState.CROUCH_WALK_BACKWARD);
+        } else if(control.isLightPunch(this.playerId)){
+            this.changeState(FighterState.CROUCH_PUNCH);
+        } else if(control.isLightKick(this.playerId)){
+            this.changeState(FighterState.CROUCH_KICK);
         }
 
         const newDirection = this.getDirection();
@@ -319,6 +338,7 @@ export class Fighter{
     handleCrouchWalkForwardState() {
         if(!control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_UP);
         if(!control.isForward(this.playerId, this.direction)) this.changeState(FighterState.CROUCH_DOWN);
+        if(control.isLightPunch(this.playerId)) this.changeState(FighterState.CROUCH_PUNCH);
 
         const newDirection = this.getDirection();
 
@@ -331,6 +351,7 @@ export class Fighter{
     handleCrouchWalkBackwardsState() {
         if(!control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_UP);
         if(!control.isBackward(this.playerId, this.direction)) this.changeState(FighterState.CROUCH_DOWN);
+        if(control.isLightPunch(this.playerId)) this.changeState(FighterState.CROUCH_PUNCH);
 
         const newDirection = this.getDirection();
 
@@ -346,8 +367,7 @@ export class Fighter{
         }
         if(!control.isDown(this.playerId)){
             this.currentState = FighterState.CROUCH_UP;
-            this.animationFrame = this.animations[FighterState.CROUCH_UP][this.animationFrame].length
-            - this.animationFrame;
+            this.animationFrame = 0;//this.animations[FighterState.CROUCH_UP][this.animationFrame].length - this.animationFrame;
         }
     }
 
@@ -462,12 +482,17 @@ export class Fighter{
         this.direction = this.getDirection();
     }
     handleJumpState(time){
-        this.velocity.y += this.gravity * time.secondsPassed;
-
-        if(this.position.y > STAGE_FLOOR){
-            this.position.y = STAGE_FLOOR;
-            this.changeState(FighterState.JUMP_LAND);
+        if(control.isLightPunch(this.playerId)){
+            this.changeState(FighterState.LIGHT_PUNCH);
+        } else if(control.isLightKick(this.playerId)){
+            this.changeState(FighterState.LIGHT_KICK);
         }
+
+        // this.velocity.y += this.gravity * time.secondsPassed;
+        // if(this.position.y > STAGE_FLOOR){
+        //     this.position.y = STAGE_FLOOR;
+        //     this.changeState(FighterState.JUMP_LAND);
+        // }
     }
 
     handleJumpLandState(){
@@ -512,7 +537,20 @@ export class Fighter{
         
         if(!this.isAnimationCompleted()) return;
         this.changeState(FighterState.IDLE);
+    }
+    handleCrouchPunchState() {
+        if(this.animationFrame < 2) return;
+        if(control.isLightPunch(this.playerId)) this.animationFrame = 0;
         
+        if(!this.isAnimationCompleted()) return;
+        this.changeState(FighterState.CROUCH);
+    }
+    handleCrouchKickState() {
+        if(this.animationFrame < 2) return;
+        if(control.isLightKick(this.playerId)) this.animationFrame = 0;
+        
+        if(!this.isAnimationCompleted()) return;
+        this.changeState(FighterState.CROUCH);
     }
 
     handleMediumPunchState(){
@@ -594,11 +632,15 @@ export class Fighter{
     }
 
     updateAnimation(time){
+        if (this.requestAnimationTimerReset)
+        {
+            this.animationTimer = time.previous;
+            this.requestAnimationTimerReset = false;
+        }
+
         // actualiza frame del shield
-        // console.log(time.previous, this.shieldLastUpdate)
         if (time.previous > this.shieldLastUpdate + 30)
         {
-            // console.log(this.shieldFrame);
             if (this.shieldFrame > 20)
                 this.shieldFrame = 0;
             else
@@ -670,6 +712,15 @@ export class Fighter{
 
         if (this.animationFrame == 0)
             this.hasHit = false;
+
+        // gravedad
+        if(this.position.y > STAGE_FLOOR){
+            this.position.y = STAGE_FLOOR;
+            this.velocity.y = 0;
+            this.changeState(FighterState.JUMP_LAND);
+        }
+        else if (this.position.y < STAGE_FLOOR)
+            this.velocity.y += this.gravity * time.secondsPassed;
     }
 
     drawDebugBox(context, camera, dimensions, baseColor){
@@ -780,6 +831,7 @@ export class Fighter{
             );
         context.setTransform(1,0,0,1,0,0);
         this.drawDebug(context, camera);
-        this.drawShield(context,camera);
+        if (this.shieldActivated)
+            this.drawShield(context,camera);
     }
 }
