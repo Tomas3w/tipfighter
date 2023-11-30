@@ -159,34 +159,24 @@ export class Tomas extends Fighter {
         ],
         [FighterState.JUMP_FORWARD]:[
           ['jump-up-1',250],['jump-up-1',150],['jump-up-2',200],['jump-up-2',200],['jump-up-2',FrameDelay.TRANSITION],
-          // ['jump-roll-1',100],['jump-roll-2',50],
-          // ['jump-roll-2',0],
         ],
         [FighterState.JUMP_BACKWARD]:[
           ['jump-up-1',250],['jump-up-1',150],['jump-up-2',200],['jump-up-2',200],['jump-up-2',FrameDelay.TRANSITION],
-          // ['jump-roll-1',100],['jump-roll-2',50],
-          // ['jump-roll-2',0],
         ],
         [FighterState.CROUCH]:[
           ['crouch-1',300],['crouch-2',300],
         ],
         [FighterState.CROUCH_DOWN]:[
           ['crouch-1',50],['crouch-2',FrameDelay.TRANSITION],
-        
         ],
         [FighterState.CROUCH_UP]:[
-         ['crouch-2',50],['crouch-1',FrameDelay.TRANSITION],
-        
+          ['crouch-2',50],['crouch-1',FrameDelay.TRANSITION],
         ],
         [FighterState.IDLE_TURN]:[
-          ['idle-turn-1',33],['idle-turn-2',33],
-          ['idle-turn-1',33],['idle-turn-1',FrameDelay.TRANSITION],
-        
+          ['idle-1',33],['idle-1',FrameDelay.TRANSITION],
         ],
         [FighterState.CROUCH_TURN]:[
-          ['crouch-turn-1',33],['crouch-turn-2',33],
-          ['crouch-turn-1',33],['crouch-turn-1',FrameDelay.TRANSITION],
-        
+          ['crouch-1',33],['crouch-2',FrameDelay.TRANSITION],
         ],
        
       };

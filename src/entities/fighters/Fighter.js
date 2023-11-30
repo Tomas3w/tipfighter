@@ -231,8 +231,11 @@ export class Fighter{
     );
 
     resetVelocities(){
-        this.velocity.x = 0;
-        this.velocity.y = 0;
+        if (this.position.y >= STAGE_FLOOR)
+        {
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+        }
     }
 
     getDirection(){
@@ -531,22 +534,35 @@ export class Fighter{
         this.changeState(FighterState.CROUCH);
     }
 
+    getLightPunchPreparationFrames()
+    {
+        return 2;
+    }
+
     handleLightPunchState(){
-        if(this.animationFrame < 2) return;
+        if(this.animationFrame < this.getLightPunchPreparationFrames()) return;
         if(control.isLightPunch(this.playerId)) this.animationFrame = 0;
         
         if(!this.isAnimationCompleted()) return;
         this.changeState(FighterState.IDLE);
     }
+    getCrouchPunchPreparationFrames()
+    {
+        return 2;
+    }
     handleCrouchPunchState() {
-        if(this.animationFrame < 2) return;
+        if(this.animationFrame < this.getCrouchPunchPreparationFrames()) return;
         if(control.isLightPunch(this.playerId)) this.animationFrame = 0;
         
         if(!this.isAnimationCompleted()) return;
         this.changeState(FighterState.CROUCH);
     }
+    getCrouchKickPreparationFrames()
+    {
+        return 2;
+    }
     handleCrouchKickState() {
-        if(this.animationFrame < 2) return;
+        if(this.animationFrame < this.getCrouchKickPreparationFrames()) return;
         if(control.isLightKick(this.playerId)) this.animationFrame = 0;
         
         if(!this.isAnimationCompleted()) return;
@@ -565,8 +581,13 @@ export class Fighter{
         
     }
 
+    getLightKickPreparationFrames()
+    {
+        return 2;
+    }
+
     handleLightKickState(){
-        if(this.animationFrame < 2) return;
+        if(this.animationFrame < this.getLightKickPreparationFrames()) return;
         if(control.isLightKick(this.playerId)) this.animationFrame = 0;
         
         if(!this.isAnimationCompleted()) return;
@@ -713,9 +734,11 @@ export class Fighter{
         if (this.animationFrame == 0)
             this.hasHit = false;
 
+        // if (this.playerId === 1) console.log('c', this.currentState);
         // gravedad
         if(this.position.y > STAGE_FLOOR){
             this.position.y = STAGE_FLOOR;
+            this.velocity.x = 0;
             this.velocity.y = 0;
             this.changeState(FighterState.JUMP_LAND);
         }
