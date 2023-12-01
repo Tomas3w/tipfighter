@@ -23,6 +23,13 @@ export class Bernardo extends Fighter {
         PUNCH:[[11,-94,24,18],[-7,-77,40,43],[-7,-33,40,33]],
      };
 
+      this.attacksDamages = {
+          [FighterState.LIGHT_PUNCH]: 4,
+          [FighterState.LIGHT_KICK]: 5,
+          [FighterState.CROUCH_PUNCH]: 4,
+          [FighterState.CROUCH_KICK]: 4,
+      };
+
       this.frames = new Map([
       
         ['jump-up-1',[[[7,453,24,57],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
@@ -76,7 +83,7 @@ export class Bernardo extends Fighter {
         this.frames.set('crouch-forwards-' + i, [[[(i - 1) * 125,236,105,119],[58,94]],this.PushBox.BEND,this.HurtBox.BEND]);
       for (let i = 1; i <= 4; i++)
         this.frames.set('light-punch-' + i, [[[(i - 1) * 125,1150,105,119],[48,106]],this.PushBox.IDLE,this.HurtBox.IDLE]);
-      this.frames.set('light-punch-' + 5, [[[(5 - 1) * 125,1150,105,119],[48,106]],this.PushBox.IDLE,this.HurtBox.IDLE,[7,-65,23,8]]);
+      this.frames.set('light-punch-' + 5, [[[(5 - 1) * 125,1150,105,119],[48,106]],this.PushBox.IDLE,this.HurtBox.IDLE,[7,-65,22,8]]);
       this.frames.set('light-punch-' + 6, [[[(6 - 1) * 125,1150,105,119],[48,106]],this.PushBox.IDLE,this.HurtBox.IDLE]);
       for (let i = 1; i <= 4; i++)
         this.frames.set('light-kick-' + i, [[[(i - 1) * 125,926,105,119],[55,106]],this.PushBox.IDLE,this.HurtBox.IDLE]);

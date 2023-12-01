@@ -36,6 +36,8 @@ export class Fighter{
         this.hasHit = false;
         this.shieldActivated = false;
         this.requestAnimationTimerReset = true;
+        this.block_controls = false;
+        this.golpeado_timer = 0;
 
         this.shieldOriginOffset = [45, ShieldSize[1] - 10];
 
@@ -59,6 +61,13 @@ export class Fighter{
            push: {x:0 , y:0, width:0 , height:0},
            hurt: [[0,0,0,0],[0,0,0,0],[0,0,0,0]],
            hit: {x:0 , y:0, width:0 , height:0},
+        };
+
+        this.attacksDamages = {
+            [FighterState.LIGHT_PUNCH]: 10,
+            [FighterState.LIGHT_KICK]: 10,
+            [FighterState.CROUCH_PUNCH]: 10,
+            [FighterState.CROUCH_KICK]: 10,
         };
         
         //maquina de estados
@@ -393,7 +402,7 @@ export class Fighter{
     }
 
     handleIdleState(){
-        if(control.isUp(this.playerId)){
+        if(control.isUp(this.playerId) && this.position.y <= STAGE_FLOOR){
              this.changeState(FighterState.JUMP_START)
         }
         else if(control.isDown(this.playerId)){
@@ -406,18 +415,20 @@ export class Fighter{
             this.changeState(FighterState.WALK_FORWARD);
         } else if(control.isLightPunch(this.playerId)){
             this.changeState(FighterState.LIGHT_PUNCH);
-        }else if(control.isMediumPunch(this.playerId)){
-            this.changeState(FighterState.MEDIUM_PUNCH);
-        }else if(control.isHeavyPunch(this.playerId)){
-            this.changeState(FighterState.HEAVY_PUNCH);
         }
+        // else if(control.isMediumPunch(this.playerId)){
+        //     this.changeState(FighterState.MEDIUM_PUNCH);
+        // }else if(control.isHeavyPunch(this.playerId)){
+        //     this.changeState(FighterState.HEAVY_PUNCH);
+        // }
         else if(control.isLightKick(this.playerId)){
             this.changeState(FighterState.LIGHT_KICK);
-        }else if(control.isMediumKick(this.playerId)){
-            this.changeState(FighterState.MEDIUM_KICK);
-        }else if(control.isHeavyKick(this.playerId)){
-            this.changeState(FighterState.HEAVY_KICK);
         }
+        // else if(control.isMediumKick(this.playerId)){
+        //     this.changeState(FighterState.MEDIUM_KICK);
+        // }else if(control.isHeavyKick(this.playerId)){
+        //     this.changeState(FighterState.HEAVY_KICK);
+        // }
 
         const newDirection = this.getDirection();
 
@@ -706,17 +717,35 @@ export class Fighter{
 
             // console.log(`${this.name} has hit ${this.opponent.name} ${hurtName[hurtIndex]}`)
             this.hasHit = true;
-            this.opponent.golpear(1);
+            this.opponent.golpear(this.position.y < STAGE_FLOOR, this.attacksDamages[this.currentState] + Math.random() * 3);
             break; // esto garantiza que solo una parte del cuerpo se haya golpeado
         }
     }
 
-    golpear(danio) {
+    golpear(in_the_air, danio) {
         let multiplier = 1;
-        if (this.velocity.x < 0)
-            multiplier = 1 / 4;
-        // console.log(`feli ${danio * multiplier}`)
+        // Este codigo permite defenderse de los ataques, excepto si vienen del aire, en cuyo caso es imposible defenderse
+        if (!in_the_air && control.isBackward(this.playerId,this.direction))
+            multiplier = 1 / 8;
+        // En esta parte se quita vida, la misma de multiplica por un factor que depende del if anterior
         this.life -= danio * multiplier;
+        // Esto genera el knockback horizontal
+        this.velocity.x -= 40;
+        // Esto genera el knockback vertical
+        this.velocity.y = -120;
+        // Esto deja al jugador en su estado IDLE para evitar que termina de dar su golpe si fue golpeado anteriormente
+        this.changeState(FighterState.IDLE);
+
+        this.golpeado_timer = 1;
+        // Esto pasa cuando muere un personaje
+        if (this.life <= 0)
+            this.empujarLejosYBloquearControles();
+    }
+
+    empujarLejosYBloquearControles() {
+        this.block_controls = true;
+        this.velocity.x -= 800;
+        this.velocity.y = -720;
     }
 
     //para seleccionar los frames en el gimp, poner los valores de posicion por ej 7 ,14 que es el punto de arriba a la izq y 
@@ -726,7 +755,8 @@ export class Fighter{
         this.position.x += (this.velocity.x * this.direction) * time.secondsPassed;
         this.position.y += this.velocity.y * time.secondsPassed; 
     
-        this.states[this.currentState].update(time,context);
+        if (!this.block_controls)
+            this.states[this.currentState].update(time,context);
         this.updateAnimation(time);
         this.updateStageConstraints(time,context,camera);
         this.updateAttackBoxCollided(time);
@@ -734,7 +764,6 @@ export class Fighter{
         if (this.animationFrame == 0)
             this.hasHit = false;
 
-        // if (this.playerId === 1) console.log('c', this.currentState);
         // gravedad
         if(this.position.y > STAGE_FLOOR){
             this.position.y = STAGE_FLOOR;
@@ -744,6 +773,10 @@ export class Fighter{
         }
         else if (this.position.y < STAGE_FLOOR)
             this.velocity.y += this.gravity * time.secondsPassed;
+        else
+            this.velocity.x *= 0.99;
+        // manejo de timer de golpe
+        this.golpeado_timer -= time.secondsPassed;
     }
 
     drawDebugBox(context, camera, dimensions, baseColor){
@@ -852,9 +885,47 @@ export class Fighter{
             Math.floor(this.position.y - camera.position.y) -originY,
             width,height
             );
+
+        let newCanvasContext = getEffectsCanvas(context.canvas.width, context.canvas.height);
+        newCanvasContext.scale(this.direction,1);
+        newCanvasContext.globalCompositeOperation = 'source-over';
+        newCanvasContext.clearRect(0, 0, newCanvasContext.canvas.width, newCanvasContext.canvas.height);
+        newCanvasContext.drawImage(
+            this.image,
+            x,y,
+            width,height,
+            Math.floor((this.position.x - camera.position.x) * this.direction ) -originX,
+            Math.floor(this.position.y - camera.position.y) -originY,
+            width,height
+            );
+
+        newCanvasContext.globalCompositeOperation = 'source-in';
+        newCanvasContext.fillStyle = 'rgba(255, 0, 0, ' + this.golpeado_timer + ')';
+        newCanvasContext.fillRect(
+            Math.floor((this.position.x - camera.position.x) * this.direction ) -originX,
+            Math.floor(this.position.y - camera.position.y) -originY,
+            width,height
+            );
+        newCanvasContext.setTransform(1,0,0,1,0,0);
+
         context.setTransform(1,0,0,1,0,0);
+        context.drawImage(newCanvasContext.canvas, 0, 0);
+
         this.drawDebug(context, camera);
         if (this.shieldActivated)
             this.drawShield(context,camera);
     }
+}
+
+var effectsCanvas = null;
+var effectsCanvasContext = null;
+function getEffectsCanvas(w,h){
+    if (effectsCanvas === null)
+    {
+        effectsCanvas = document.createElement("canvas");
+        effectsCanvas.width = w;
+        effectsCanvas.height = h;
+        effectsCanvasContext = effectsCanvas.getContext("2d");
+    }
+    return effectsCanvasContext;
 }
