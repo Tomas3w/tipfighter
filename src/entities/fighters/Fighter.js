@@ -697,6 +697,7 @@ export class Fighter{
 
     updateAttackBoxCollided(time){
         if(!this.states[this.currentState].attackType) return;
+        if (this.boxes.hit.width === 0) this.hasHit = false;
         if (this.hasHit) return;
 
         const actualHitBox = getActualBoxDimensions(this.position,this.direction,this.boxes.hit);
@@ -726,7 +727,12 @@ export class Fighter{
         let multiplier = 1;
         // Este codigo permite defenderse de los ataques, excepto si vienen del aire, en cuyo caso es imposible defenderse
         if (!in_the_air && control.isBackward(this.playerId,this.direction))
+        {
             multiplier = 1 / 8;
+            this.golpeado_timer = 0.1;
+        }
+        else
+            this.golpeado_timer = 1;
         // En esta parte se quita vida, la misma de multiplica por un factor que depende del if anterior
         this.life -= danio * multiplier;
         // Esto genera el knockback horizontal
@@ -736,7 +742,6 @@ export class Fighter{
         // Esto deja al jugador en su estado IDLE para evitar que termina de dar su golpe si fue golpeado anteriormente
         this.changeState(FighterState.IDLE);
 
-        this.golpeado_timer = 1;
         // Esto pasa cuando muere un personaje
         if (this.life <= 0)
             this.empujarLejosYBloquearControles();

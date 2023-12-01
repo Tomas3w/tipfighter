@@ -8,7 +8,8 @@ export class Stage{
 
             ['stage-boat',[8,16,521,180]],
 
-            ['stage-floor',[8,392,896,72  ]],
+            // ['stage-floor',[8,392,896,72  ]],
+            ['stage-floor',[0,169,896+8,295  ]],
         ]);
     }
 
@@ -22,9 +23,10 @@ export class Stage{
     }
 
     draw(context,camera){
-        this.drawFrame(context,'stage-background',Math.floor(16- (camera.position.x / 2.157303)),- camera.position.y);
-        this.drawFrame(context,'stage-boat',Math.floor(150- (camera.position.x / 1.613445)),-1 - camera.position.y);
-        this.drawFrame(context,'stage-floor',Math.floor(192- camera.position.x),176 - camera.position.y);
+        // this.drawFrame(context,'stage-background',Math.floor(16- (camera.position.x / 2.157303)),- camera.position.y);
+        // this.drawFrame(context,'stage-boat',Math.floor(150- (camera.position.x / 1.613445)),-1 - camera.position.y);
+        // this.drawFrame(context,'stage-floor',Math.floor(192- camera.position.x),176 - camera.position.y);
+        this.drawFrame(context,'stage-floor',Math.floor(192- camera.position.x),176 - (392 - 169) - camera.position.y);
     }
 }
 
