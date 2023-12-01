@@ -8,6 +8,7 @@ export class Tomas extends Fighter {
 
 
       this.PushBox = {
+
         IDLE: [-14,-87,28,79],
         JUMP: [-16,-91,32,66],
         BEND: [-16,-77,32,70],
@@ -34,7 +35,7 @@ export class Tomas extends Fighter {
 
       this.frames = new Map([
          //idle stance
-       
+
         ['idle-1',[[[0,350,28,79],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['idle-2',[[[38,349,28,80],[12,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
@@ -43,6 +44,7 @@ export class Tomas extends Fighter {
       
         ['backwards-2',[[[9,785,28,79],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['backwards-1',[[[65,785,32,79],[12,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+
       
         ['jump-up-1',[[[18,447,32,69],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['jump-up-2',[[[91,437,27,79],[12,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
@@ -86,8 +88,11 @@ export class Tomas extends Fighter {
         //light punch (los personajes solo tienen este golpe)
        
         ['light-punch-1',[[[0,873,28,78],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+
+       
         ['light-punch-2',[[[61,873,49,78],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[14,-70,23,8]]],
         ['light-punch-3',[[[123,873,49,78],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+
 
         ['med-punch-1',[[[517,1149,60,94],[28,91]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['med-punch-2',[[[650,1148,74,95],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],

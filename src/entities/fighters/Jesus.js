@@ -7,59 +7,59 @@ export class Jesus extends Fighter {
 
 
       this.PushBox = {
-        IDLE: [-15,-87,56,79],
+        IDLE: [-16,-80,32,78],
         JUMP: [-16,-91,32,66],
-        BEND: [-15,-77,56,60],
+        BEND: [-16,-58,32,58],
         CROUCH: [-50,-120,32,50],
      }
      
      this.HurtBox = {
-        IDLE:[[-15,-87,56,41],[-1,-47,30,15],[-1,-36,30,32]],
+        IDLE:[[-19,-87,36,41],[-14,-47,30,15],[-16,-36,30,32]],
         BACKWARD:[[-19,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
         FORWARD:[[-3,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
         JUMP:[[-2,-106,28,18],[-16,-53,40,42],[-22,-66,38,18]],
-        BEND:[[-15,-75,46,50],[-5,-28,32,14],[-2,-35,24,32]],
-        CROUCH:[[6,-61,24,18],[-16,-46,44,24],[-16,-24,44,24]],
+        BEND:[[-24,-75,40,50],[-15,-28,32,14],[-10,-35,24,32]],
+        CROUCH:[[-18,-61,24,18],[-16,-46,44,24],[-16,-24,44,24]],
         PUNCH:[[11,-94,24,18],[-7,-77,40,43],[-7,-33,40,33]],
      };
 
       this.frames = new Map([
          //idle stance
        
-        ['idle-1',[[[0,289,64,83],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['idle-2',[[[74,287,64,85],[22,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-1',[[[0,289,64,83],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-2',[[[74,287,64,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
-        ['forwards-1',[[[0,475,64,83],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-2',[[[74,473,64,85],[22,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['forwards-1',[[[0,475,64,83],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['forwards-2',[[[74,473,64,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
-        ['backwards-2',[[[74,473,64,85],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['backwards-1',[[[0,475,64,83],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['backwards-2',[[[74,473,64,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['backwards-1',[[[0,475,64,83],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
-        ['jump-up-1',[[[3,385,60,80],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['jump-up-2',[[[78,373,59,92],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-up-1',[[[3,385,60,80],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-up-2',[[[78,373,59,92],[40,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
         ['jump-kick-1',[[[346,688,60,89],[34,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['jump-kick-2',[[[2,687,59,90],[33,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['jump-kick-3',[[[2,687,59,90],[33,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
 
-        ['crouch-1',[[[0,13,64,80],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-2',[[[74,15,64,78],[25,77]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-1',[[[0,13,64,80],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-2',[[[74,15,64,78],[40,77]],this.PushBox.BEND,this.HurtBox.BEND]],
       
         
-        ['jump-land',[[[3,385,60,80],[22,84]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-land',[[[3,385,60,80],[40,84]],this.PushBox.IDLE,this.HurtBox.IDLE]],
           
         //stand turn
         ['idle-turn-1',[[[420,682,54,95],[29,92]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['idle-turn-2',[[[488,678,58,98],[30,95]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['idle-turn-3',[[[560,683,54,94],[27,90]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         
-        ['jump-roll-1',[[[3,385,60,80],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['jump-roll-2',[[[78,373,59,92],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-roll-1',[[[3,385,60,80],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-roll-2',[[[78,373,59,92],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
         //crouch turn
-        ['crouch-turn-1',[[[18,447,32,69],[22,86]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-turn-2',[[[424,802,52,61],[27,58]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-turn-1',[[[18,447,32,69],[40,86]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-turn-2',[[[424,802,52,61],[40,58]],this.PushBox.BEND,this.HurtBox.BEND]],
       
         //light punch (los personajes solo tienen este golpe)
        
