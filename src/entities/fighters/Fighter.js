@@ -766,13 +766,18 @@ export class Fighter{
 
         // gravedad
         if(this.position.y > STAGE_FLOOR){
-            this.position.y = STAGE_FLOOR;
-            this.velocity.x = 0;
-            this.velocity.y = 0;
-            this.changeState(FighterState.JUMP_LAND);
+            if (!this.block_controls)
+            {
+                this.position.y = STAGE_FLOOR;
+                this.velocity.x = 0;
+                this.velocity.y = 0;
+                this.changeState(FighterState.JUMP_LAND);
+            }
         }
         else if (this.position.y < STAGE_FLOOR)
+        {
             this.velocity.y += this.gravity * time.secondsPassed;
+        }
         else
             this.velocity.x *= 0.99;
         // manejo de timer de golpe
@@ -877,6 +882,9 @@ export class Fighter{
         ]]= this.frames.get(frameKey);
 
         context.scale(this.direction,1);
+        // let angle_of_rotation = -Math.PI * (this.golpeado_timer - 1) / 10;
+        // if (this.block_controls)
+        //     context.rotate(angle_of_rotation);
         context.drawImage(
             this.image,
             x,y,
@@ -889,6 +897,8 @@ export class Fighter{
         let newCanvasContext = getEffectsCanvas(context.canvas.width, context.canvas.height);
         newCanvasContext.scale(this.direction,1);
         newCanvasContext.globalCompositeOperation = 'source-over';
+        // if (this.block_controls)
+        //     newCanvasContext.rotate(angle_of_rotation);
         newCanvasContext.clearRect(0, 0, newCanvasContext.canvas.width, newCanvasContext.canvas.height);
         newCanvasContext.drawImage(
             this.image,
@@ -907,7 +917,7 @@ export class Fighter{
             width,height
             );
         newCanvasContext.setTransform(1,0,0,1,0,0);
-
+        
         context.setTransform(1,0,0,1,0,0);
         context.drawImage(newCanvasContext.canvas, 0, 0);
 
