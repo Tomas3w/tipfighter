@@ -2,7 +2,7 @@ import {Fighter} from './Fighter.js';
 import {FighterState, FrameDelay} from '../../constants/fighter.js'
 export class Joaquin extends Fighter {
   constructor(playerId){
-    super('Ken',playerId);
+    super('Joaquin',playerId);
       this.image = document.querySelector('img[alt="joaquin"]');
 
 
@@ -53,10 +53,10 @@ export class Joaquin extends Fighter {
 
 
         //crouch walk
-        ['crouch-forwards-1',[[[18,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-forwards-2',[[[91,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-backwards-1',[[[18,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-backwards-2',[[[91,186,32,69],[25,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-forwards-1',[[[5,198,26,57],[1,56]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-forwards-2',[[[50,198,24,57],[1,57]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-backwards-1',[[[5,198,26,57],[1,56]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-backwards-2',[[[50,198,24,57],[1,57]],this.PushBox.BEND,this.HurtBox.BEND]],
           
         //stand turn
         ['idle-turn-1',[[[420,682,54,95],[29,92]],this.PushBox.IDLE,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
