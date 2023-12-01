@@ -8,7 +8,7 @@ export class Tomas extends Fighter {
 
 
       this.PushBox = {
-        IDLE: [-22,-87,28,79],
+        IDLE: [-16,-80,32,78],
         JUMP: [-16,-91,32,66],
         BEND: [-26,-77,32,70],
         CROUCH: [-50,-120,32,50],
@@ -33,14 +33,14 @@ export class Tomas extends Fighter {
       this.frames = new Map([
          //idle stance
        
-        ['idle-1',[[[0,350,28,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['idle-2',[[[38,349,28,80],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-1',[[[0,350,28,79],[10,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-2',[[[38,349,28,80],[10,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
-        ['forwards-1',[[[9,785,28,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-2',[[[65,785,32,79],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['forwards-1',[[[9,785,28,79],[10,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['forwards-2',[[[65,785,32,79],[10,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
-        ['backwards-2',[[[9,785,28,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['backwards-1',[[[65,785,32,79],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['backwards-2',[[[9,785,28,79],[10,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['backwards-1',[[[65,785,32,79],[10,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
         ['jump-up-1',[[[18,447,32,69],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['jump-up-2',[[[91,437,27,79],[22,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
@@ -76,9 +76,9 @@ export class Tomas extends Fighter {
       
         //light punch (los personajes solo tienen este golpe)
        
-        ['light-punch-1',[[[0,873,28,78],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['light-punch-2',[[[61,873,49,78],[23,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[8,-70,19,8]]],
-        ['light-punch-3',[[[123,873,49,78],[23,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-1',[[[0,873,28,78],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-2',[[[61,873,49,78],[13,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[8,-70,19,8]]],
+        ['light-punch-3',[[[123,873,49,78],[13,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
         ['med-punch-1',[[[517,1149,60,94],[28,91]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['med-punch-2',[[[650,1148,74,95],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
