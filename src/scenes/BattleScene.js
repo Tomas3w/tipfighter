@@ -5,6 +5,7 @@ import {Joaquin} from "../entities/fighters/Joaquin.js";
 import {Milton} from "../entities/fighters/Milton.js";
 import {Jesus} from "../entities/fighters/Jesus.js";
 // import {Maximiliano} from "../entities/fighters/Maximiliano.js";
+import {Bernardo} from "../entities/fighters/Bernardo.js";
 import {Stage} from "../entities/Stage.js";
 import {FpsCounter} from "../entities/FpsCounter.js";
 import { STAGE_MID_POINT, STAGE_PADDING} from "../constants/stage.js";
@@ -22,7 +23,7 @@ const FighterClasses = [
     Joaquin,
     Jesus,
     undefined,
-    undefined,
+    Bernardo,
 ];
 
 export class BattleScene {
