@@ -47,6 +47,7 @@ export class StatusBar{
             ['tag-ryu',[16,56,28,9]],
             ['tag-tomas',[56,56,48,9]],
             ['tag-jesus',[168,56,43,9]],
+            ['tag-milton',[226,56,55,9]],
 
         ]);
 
