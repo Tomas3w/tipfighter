@@ -432,7 +432,7 @@ export class Fighter{
 
         const newDirection = this.getDirection();
 
-        if(newDirection !== this.direction){
+        if(newDirection !== this.direction && this.position.y >= STAGE_FLOOR){
             this.direction = newDirection;
             this.changeState(FighterState.IDLE_TURN);
         }
