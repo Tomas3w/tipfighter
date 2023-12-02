@@ -24,7 +24,7 @@ constructor(){
 
     // this.currentScene = new MenuScene(this, this.context);
 
-    this.currentScene = new BattleScene(this, this.context, 0, 2);
+    this.currentScene = new BattleScene(this, this.context, 0, 4);
 
     // this.currentScene = new MatchEndScene(this, this.context, 4, 5, true);
 }

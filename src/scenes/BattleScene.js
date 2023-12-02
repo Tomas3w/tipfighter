@@ -15,13 +15,14 @@ import { Camera } from "../Camera.js";
 import { getContext } from "../utils/context.js";
 import { MatchEndScene } from "./MatchEndScene.js";
 import { FighterIdFromName } from "../constants/fighter.js";
+import { Maximiliano } from "../entities/fighters/Maximiliano.js";
 
 const FighterClasses = [
     Tomas,
     Milton,
     Joaquin,
     Jesus,
-    undefined,
+    Maximiliano,
     undefined,
 ];
 

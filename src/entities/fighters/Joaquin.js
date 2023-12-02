@@ -2,7 +2,7 @@ import {Fighter} from './Fighter.js';
 import {FighterState, FrameDelay} from '../../constants/fighter.js'
 export class Joaquin extends Fighter {
   constructor(playerId){
-    super('Joaquin',playerId);
+    super('Ryu',playerId);
       this.image = document.querySelector('img[alt="joaquin"]');
 
 
@@ -14,7 +14,7 @@ export class Joaquin extends Fighter {
      }
      
      this.HurtBox = {
-        IDLE:[[-6,-76,14,15],[-5,-70,22,34],[-3,-38,20,32]],
+        IDLE:[[1,-76,14,15],[-5,-70,22,34],[-3,-38,20,32]],
         BACKWARD:[[-19,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
         FORWARD:[[-3,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
         JUMP:[[-13,-106,28,18],[-16,-53,40,42],[-22,-66,38,18]],
@@ -35,7 +35,7 @@ export class Joaquin extends Fighter {
         ['backwards-2',[[[45,765,17,71],[1,77]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['backwards-1',[[[7,765,19,71],[1,76]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
-        ['jump-up-1',[[[7,453,24,57],[1,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-up-1',[[[7,453,24,57],[1,75]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['jump-up-2',[[[45,438,29,72],[1,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
         ['jump-kick-1',[[[346,688,60,89],[34,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
@@ -46,8 +46,8 @@ export class Joaquin extends Fighter {
         ['crouch-1',[[[7,28,24,57],[1,56]],this.PushBox.BEND,this.HurtBox.BEND]],
         ['crouch-2',[[[50,27,24,58],[1,57]],this.PushBox.BEND,this.HurtBox.BEND]],
         
-        ['jump-roll-1',[[[7,453,24,57],[1,86]],this.PushBox.JUMP,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
-        ['jump-roll-2',[[[7,453,24,57],[1,86]],this.PushBox.JUMP,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        ['jump-roll-1',[[[7,453,24,57],[1,86]],this.PushBox.JUMP,[[5,-85,10,10],[0,-70,15,25],[5,-50,10,15]]]],
+        ['jump-roll-2',[[[7,453,24,57],[1,86]],this.PushBox.JUMP,[[5,-85,10,10],[0,-70,15,25],[5,-50,10,15]]]],
         
         ['jump-land',[[[660,1060,55,85],[29,83]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
@@ -64,15 +64,23 @@ export class Joaquin extends Fighter {
         ['idle-turn-3',[[[560,683,54,94],[27,90]],this.PushBox.IDLE,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
 
 
+        ['crouch-punch-1',[[[18,283,18,57],[1,56]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-punch-2',[[[77,283,36,57],[1,56]],this.PushBox.BEND,this.HurtBox.BEND,[14,-40,22,8]]],
+        ['crouch-punch-3',[[[140,283,22,57],[1,56]],this.PushBox.BEND,this.HurtBox.BEND]],
+
+        ['crouch-kick-1',[[[16,113,24,57],[1,56]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK]],
+        ['crouch-kick-2',[[[65,113,41,57],[1,57]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK,[14,-26,26,8]]],
+        ['crouch-kick-3',[[[126,113,40,57],[1,56]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK]],
+
         //crouch turn
-        ['crouch-turn-1',[[[356,802,53,61],[26,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
-        ['crouch-turn-2',[[[424,802,52,61],[27,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
-        ['crouch-turn-3',[[[486,802,53,61],[29,58]],this.PushBox.CROUCH,[[0,0,0,0],[0,0,0,0],[0,0,0,0]]]],
+        ['crouch-turn-1',[[[356,802,53,61],[26,58]],this.PushBox.CROUCH,this.HurtBox.BEND]],
+        ['crouch-turn-2',[[[424,802,52,61],[27,58]],this.PushBox.CROUCH,this.HurtBox.BEND]],
+        ['crouch-turn-3',[[[486,802,53,61],[29,58]],this.PushBox.CROUCH,this.HurtBox.BEND]],
 
         //light punch (los personajes solo tienen este golpe)
        
-        ['light-punch-1',[[[11,863,21,70],[1,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['light-punch-2',[[[48,863,36,70],[1,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[-6,-70,19,8]]],
+        ['light-punch-1',[[[11,863,21,70],[1,76]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-2',[[[48,863,36,70],[1,76]],this.PushBox.IDLE,this.HurtBox.IDLE,[16,-60,19,8]]],
 
         ['med-punch-1',[[[517,1149,60,94],[28,91]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['med-punch-2',[[[650,1148,74,95],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
@@ -82,8 +90,8 @@ export class Joaquin extends Fighter {
        
         //light kick (los personajes solo tienen esta patada)
        
-        ['light-kick-1',[[[5,692,28,67],[22,86]],this.PushBox.IDLE,[[-33,-96,30,18],[-41,-79,42,38],[-32,-52,44,50]]]],
-        ['light-kick-2',[[[57,695,45,64],[23,86]],this.PushBox.IDLE,[[-65,-96,30,18],[-57,-79,42,38],[-32,-52,44,50]],[14,-78,9,8]]],
+        ['light-kick-1',[[[5,692,28,67],[1,76]],this.PushBox.IDLE,[[-2,-46,30,18],[-12,-79,42,38],[-12,-52,24,50]]]],
+        ['light-kick-2',[[[57,695,45,64],[1,76]],this.PushBox.IDLE,[[-2,-46,22,18],[-12,-79,22,38],[-12,-52,24,50]],[37,-71,9,8]]],
 
         ['med-kick-1',[[[143,1565,114,92],[68,93]],this.PushBox.IDLE,[[-65,-96,30,18],[-57,-79,42,38],[-32,-52,44,50]]]],
         
@@ -115,6 +123,12 @@ export class Joaquin extends Fighter {
         ],
         [FighterState.WALK_BACKWARD]:[
           ['backwards-1',350],['backwards-2',350],
+        ],
+        [FighterState.CROUCH_PUNCH]:[
+          ['crouch-punch-1',250],['crouch-punch-2',100],['crouch-punch-3',33],['crouch-punch-3',FrameDelay.TRANSITION]
+        ],
+        [FighterState.CROUCH_KICK]:[
+          ['crouch-kick-1',350],['crouch-kick-2',100],['crouch-kick-3',33],['crouch-kick-3',FrameDelay.TRANSITION]
         ],
         [FighterState.CROUCH_WALK_FORWARD]: [
           ['crouch-forwards-1',350],['crouch-forwards-2',350],
