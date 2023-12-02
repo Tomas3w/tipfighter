@@ -46,7 +46,16 @@ export class Jesus extends Fighter {
         ['crouch-1',[[[0,13,64,80],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
         ['crouch-2',[[[74,15,64,78],[40,77]],this.PushBox.BEND,this.HurtBox.BEND]],
       
+         //crouch walk
+         ['crouch-forwards-1',[[[0,104,64,82],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+         ['crouch-forwards-2',[[[74,106,64,80],[40,77]],this.PushBox.BEND,this.HurtBox.BEND]],
+         ['crouch-backwards-1',[[[0,104,64,82],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+         ['crouch-backwards-2',[[[74,106,64,80],[40,77]],this.PushBox.BEND,this.HurtBox.BEND]],
         
+        ['crouch-punch-1',[[[0,200,62,79],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-punch-2',[[[93,197,81,82],[40,76]],this.PushBox.BEND,this.HurtBox.BEND,[19,-35,22,8]]],
+        ['crouch-punch-3',[[[188,199,66,80],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+
         ['jump-land',[[[3,385,60,80],[40,84]],this.PushBox.IDLE,this.HurtBox.IDLE]],
           
         //stand turn
@@ -63,11 +72,11 @@ export class Jesus extends Fighter {
       
         //light punch (los personajes solo tienen este golpe)
        
-        ['light-punch-1',[[[0,558,64,85],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['light-punch-2',[[[104,558,64,85],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['light-punch-3',[[[208,558,63,85],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['light-punch-4',[[[312,558,93,85],[22,88]],this.PushBox.IDLE,this.HurtBox.IDLE,[52,-52,19,8]]],
-        ['light-punch-5',[[[416,558,80,85],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE,]],
+        ['light-punch-1',[[[0,558,64,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-2',[[[104,558,64,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-3',[[[208,558,63,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-4',[[[312,558,93,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE,[35,-52,19,8]]],
+        ['light-punch-5',[[[416,558,80,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE,]],
 
         ['med-punch-1',[[[517,1149,60,94],[28,91]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['med-punch-2',[[[650,1148,74,95],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
@@ -75,6 +84,10 @@ export class Jesus extends Fighter {
 
         ['heavy-punch-1',[[[736,1148,108,94],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
        
+
+        ['crouch-kick-1',[[[16,113,24,57],[1,56]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK]],
+        ['crouch-kick-2',[[[65,113,41,57],[1,57]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK,[14,-26,26,8]]],
+        ['crouch-kick-3',[[[126,113,40,57],[1,56]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK]],
         //light kick (los personajes solo tienen esta patada)
        
         ['light-kick-1',[[[12,704,25,79],[22,86]],this.PushBox.IDLE,[[-33,-96,30,18],[-41,-79,42,38],[-32,-52,44,50]]]],
@@ -113,6 +126,9 @@ export class Jesus extends Fighter {
           ['jump-up-1',250],['jump-up-1',150],['jump-up-2',200],['jump-up-2',200],['jump-up-2',-1],
 
         ],
+        [FighterState.CROUCH_PUNCH]:[
+          ['crouch-punch-1',250],['crouch-punch-2',100],['crouch-punch-3',33],['crouch-punch-3',FrameDelay.TRANSITION]
+        ],
         [FighterState.LIGHT_PUNCH]:[
           ['light-punch-1',33],['light-punch-2',33],
           ['light-punch-3',33],['light-punch-4',50],['light-punch-5',10],['light-punch-1',FrameDelay.TRANSITION],
@@ -130,6 +146,12 @@ export class Jesus extends Fighter {
         [FighterState.JUMP_BACKWARD]:[
           ['jump-roll-1',100],['jump-roll-2',50],
           ['jump-roll-2',0],
+        ],
+        [FighterState.CROUCH_WALK_FORWARD]: [
+          ['crouch-forwards-1',350],['crouch-forwards-2',350],
+        ],
+        [FighterState.CROUCH_WALK_BACKWARD]:[
+          ['crouch-backwards-1',350],['crouch-backwards-2',350],
         ],
         [FighterState.CROUCH]:[
           ['crouch-2',FrameDelay.FREEZE],
@@ -161,6 +183,8 @@ export class Jesus extends Fighter {
           [FighterState.WALK_BACKWARD]:- (2*60),
           [FighterState.JUMP_FORWARD]:((48*3)+(12*2)),
           [FighterState.JUMP_BACKWARD]:-((45*4)+(15*3)),
+          [FighterState.CROUCH_WALK_FORWARD]:3 * 60,
+          [FighterState.CROUCH_WALK_BACKWARD]:- (2*60),
         },
         jump: -420,
       };
