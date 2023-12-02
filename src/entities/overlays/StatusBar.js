@@ -52,6 +52,8 @@ export class StatusBar{
             ['tag-jesus',[168,56,43,9]],
             ['tag-milton',[226,56,55,9]],
             ['tag-bernardo',[287,40,75,9]],
+            ['tag-joaquin',[146,81,61,9]],
+            ['tag-maximiliano',[215,72,34,9]],
 
         ]);
 
@@ -119,7 +121,7 @@ export class StatusBar{
     drawCuadroPersonaje(context) {
         let c1 = FighterIdFromName[this.fighters[0].name];
         let c2 = FighterIdFromName[this.fighters[1].name];
-        drawFrame(context, this.characters_image, [Math.floor((c1 % 3) * 29), Math.floor(c1 / 3) * 29, 29, 29], 4, 13);
+        drawFrame(context, this.characters_image, [Math.floor((c1 % 3) * 29), Math.floor(c1 / 3) * 29, 29, 29], 4 + 29, 13, -1);
         drawFrame(context, this.characters_image, [Math.floor((c2 % 3) * 29), Math.floor(c2 / 3) * 29, 29, 29], context.canvas.width - 4 - 29, 13);
     }
 

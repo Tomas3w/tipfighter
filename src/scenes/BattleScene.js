@@ -25,7 +25,6 @@ const FighterClasses = [
     Jesus,
     Maximiliano,
     Bernardo,
-
 ];
 
 export class BattleScene {

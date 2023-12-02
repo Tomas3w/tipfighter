@@ -2,7 +2,7 @@ import {Fighter} from './Fighter.js';
 import {FighterState, FrameDelay} from '../../constants/fighter.js'
 export class Joaquin extends Fighter {
   constructor(playerId){
-    super('Ryu',playerId);
+    super('Joaquin',playerId);
       this.image = document.querySelector('img[alt="joaquin"]');
 
 

@@ -12,6 +12,18 @@ import { boxOverlap, getActualBoxDimensions, rectsOverlap } from '../../utils/co
 import * as control from '../../inputHandler.js';
 import { Control } from '../../constants/control.js';
 import { PushBox, HurtBox} from '../../constants/fighter.js'
+
+function LoadSounds(ids) {
+    return Object.fromEntries(Object.entries(ids).map(([key, id]) => [key, id.map(_id => document.getElementById(_id))]));
+}
+
+function PlaySound(sound) {
+    if (Array.isArray(sound))
+        PlaySound(sound[Math.floor(Math.random() * sound.length)]);
+    else
+        sound.cloneNode(true).play();
+}
+
 export class Fighter{
 
     //Collision boxes
@@ -38,6 +50,12 @@ export class Fighter{
         this.requestAnimationTimerReset = true;
         this.block_controls = false;
         this.golpeado_timer = 0;
+
+        this.sounds = LoadSounds({
+            'punch': Array.from({ length: 12 }, (_, i) => `punch${i}`),
+            'hit': Array.from({ length: 14 }, (_, i) => `hit${i}`),
+            'final': Array.from({ length: 13 }, (_, i) => `final${i}`),
+        });
 
         this.shieldOriginOffset = [45, ShieldSize[1] - 10];
 
@@ -318,6 +336,7 @@ export class Fighter{
 
     handleStandardLightAttackInit(){
         this.resetVelocities();
+        PlaySound(this.sounds['punch']);
     }
     handleStandardMediumAttackInit(){
         this.resetVelocities();
@@ -556,7 +575,11 @@ export class Fighter{
 
     handleLightPunchState(){
         if(this.animationFrame < this.getLightPunchPreparationFrames()) return;
-        if(control.isLightPunch(this.playerId)) this.animationFrame = 0;
+        if(control.isLightPunch(this.playerId))
+        {
+            this.animationFrame = 0;
+            PlaySound(this.sounds['punch']);
+        }
         
         if(!this.isAnimationCompleted()) return;
         this.changeState(FighterState.IDLE);
@@ -567,7 +590,11 @@ export class Fighter{
     }
     handleCrouchPunchState() {
         if(this.animationFrame < this.getCrouchPunchPreparationFrames()) return;
-        if(control.isLightPunch(this.playerId)) this.animationFrame = 0;
+        if(control.isLightPunch(this.playerId))
+        {
+            this.animationFrame = 0;
+            PlaySound(this.sounds['punch']);
+        }
         
         if(!this.isAnimationCompleted()) return;
         this.changeState(FighterState.CROUCH);
@@ -578,7 +605,11 @@ export class Fighter{
     }
     handleCrouchKickState() {
         if(this.animationFrame < this.getCrouchKickPreparationFrames()) return;
-        if(control.isLightKick(this.playerId)) this.animationFrame = 0;
+        if(control.isLightKick(this.playerId))
+        {
+            this.animationFrame = 0;
+            PlaySound(this.sounds['punch']);
+        }
         
         if(!this.isAnimationCompleted()) return;
         this.changeState(FighterState.CROUCH);
@@ -603,7 +634,11 @@ export class Fighter{
 
     handleLightKickState(){
         if(this.animationFrame < this.getLightKickPreparationFrames()) return;
-        if(control.isLightKick(this.playerId)) this.animationFrame = 0;
+        if(control.isLightKick(this.playerId))
+        {
+            this.animationFrame = 0;
+            PlaySound(this.sounds['punch']);
+        }
         
         if(!this.isAnimationCompleted()) return;
         this.changeState(FighterState.IDLE);
@@ -725,6 +760,7 @@ export class Fighter{
             // console.log(`${this.name} has hit ${this.opponent.name} ${hurtName[hurtIndex]}`)
             this.hasHit = true;
             this.opponent.golpear(this.position.y < STAGE_FLOOR, this.attacksDamages[this.currentState] + Math.random() * 3);
+            // console.log('this ', this.sounds);
             break; // esto garantiza que solo una parte del cuerpo se haya golpeado
         }
     }
@@ -750,7 +786,12 @@ export class Fighter{
 
         // Esto pasa cuando muere un personaje
         if (this.life <= 0)
+        {
             this.empujarLejosYBloquearControles();
+            PlaySound(this.sounds['final']);
+        }
+        else
+            PlaySound(this.sounds['hit']);
     }
 
     empujarLejosYBloquearControles() {
