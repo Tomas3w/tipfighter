@@ -402,7 +402,7 @@ export class Fighter{
     }
 
     handleIdleState(){
-        if(control.isUp(this.playerId) && this.position.y <= STAGE_FLOOR){
+        if(control.isUp(this.playerId) && this.position.y >= STAGE_FLOOR){
              this.changeState(FighterState.JUMP_START)
         }
         else if(control.isDown(this.playerId)){
