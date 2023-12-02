@@ -422,7 +422,7 @@ export class Fighter{
 
     handleIdleState(){
         if(control.isUp(this.playerId) && this.position.y >= STAGE_FLOOR){
-             this.changeState(FighterState.JUMP_START)
+            this.changeState(FighterState.JUMP_START)
         }
         else if(control.isDown(this.playerId)){
             this.changeState(FighterState.CROUCH_DOWN);
@@ -461,7 +461,7 @@ export class Fighter{
         if(!control.isForward(this.playerId,this.direction)){
             this.changeState(FighterState.IDLE);
         } 
-         if(control.isUp(this.playerId)){ 
+         if(control.isUp(this.playerId) && this.position.y >= STAGE_FLOOR){ 
             this.changeState(FighterState.JUMP_START);
         }
          if(control.isDown(this.playerId)){
@@ -492,7 +492,7 @@ export class Fighter{
         if(!control.isBackward(this.playerId,this.direction)){
             this.changeState(FighterState.IDLE);
         } 
-         if(control.isUp(this.playerId)){
+         if(control.isUp(this.playerId) && this.position.y >= STAGE_FLOOR){
             this.changeState(FighterState.JUMP_START);
         } 
          if(control.isDown(this.playerId)){
@@ -767,14 +767,18 @@ export class Fighter{
 
     golpear(in_the_air, danio) {
         let multiplier = 1;
-        // Este codigo permite defenderse de los ataques, excepto si vienen del aire, en cuyo caso es imposible defenderse
-        if (!in_the_air && control.isBackward(this.playerId,this.direction))
+        // Este codigo permite defenderse de los ataques, solo se puede defender si no esta atacando
+        if (this.states[this.currentState].attackType === undefined && control.isBackward(this.playerId,this.direction))
         {
-            multiplier = 1 / 8;
-            this.golpeado_timer = 0.1;
+            // Es imposible defenderse si el ataque viene del aire
+            if (!in_the_air)
+            {
+                multiplier = 1 / 8;
+                this.golpeado_timer = 0.1;
+            }
+            else
+                this.golpeado_timer = 1;
         }
-        else
-            this.golpeado_timer = 1;
         // En esta parte se quita vida, la misma de multiplica por un factor que depende del if anterior
         this.life -= danio * multiplier;
         // Esto genera el knockback horizontal
