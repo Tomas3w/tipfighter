@@ -61,6 +61,7 @@ def create_sprite_sheet(input_folder, output_folder, row_height):
         sprite_sheet.blit(image[0], (0, y_offset))
         y_offset += max_height
     y_offset = 0
+    print('y separation = ' + str(max_height))
     for image in final_sprite_images:
         sprite_sheet.blit(image[1], (sprite_total_width, y_offset))
         y_offset += max_height

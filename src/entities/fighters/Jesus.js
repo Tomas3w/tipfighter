@@ -26,35 +26,35 @@ export class Jesus extends Fighter {
       this.frames = new Map([
          //idle stance
        
-        ['idle-1',[[[0,289,64,83],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['idle-2',[[[74,287,64,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-1',[[[0,289+93,64,83],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['idle-2',[[[74,287+93,64,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
-        ['forwards-1',[[[0,475,64,83],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['forwards-2',[[[74,473,64,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['forwards-1',[[[0,475+93*2,64,83],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['forwards-2',[[[74,473+93*2,64,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
-        ['backwards-2',[[[74,473,64,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['backwards-1',[[[0,475,64,83],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['backwards-2',[[[74,473+93*2,64,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['backwards-1',[[[0,475+93*2,64,83],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
-        ['jump-up-1',[[[3,385,60,80],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['jump-up-2',[[[78,373,59,92],[40,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-up-1',[[[3,385+93,60,80],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['jump-up-2',[[[78,373+93,59,92],[40,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
         ['jump-kick-1',[[[346,688,60,89],[34,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['jump-kick-2',[[[2,687,59,90],[33,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['jump-kick-3',[[[2,687,59,90],[33,87]],this.PushBox.IDLE,this.HurtBox.IDLE]],
       
 
-        ['crouch-1',[[[0,13,64,80],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-2',[[[74,15,64,78],[40,77]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-1',[[[0,13,64,80],[40,83]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-2',[[[74,13,64,80],[40,83]],this.PushBox.BEND,this.HurtBox.BEND]],
       
          //crouch walk
-         ['crouch-forwards-1',[[[0,104,64,82],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-         ['crouch-forwards-2',[[[74,106,64,80],[40,77]],this.PushBox.BEND,this.HurtBox.BEND]],
-         ['crouch-backwards-1',[[[0,104,64,82],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-         ['crouch-backwards-2',[[[74,106,64,80],[40,77]],this.PushBox.BEND,this.HurtBox.BEND]],
+         ['crouch-forwards-1',[[[0,104+93,64,82],[40,82]],this.PushBox.BEND,this.HurtBox.BEND]],
+         ['crouch-forwards-2',[[[74,106+93,64,80],[40,82]],this.PushBox.BEND,this.HurtBox.BEND]],
+         ['crouch-backwards-1',[[[0,104+93,64,82],[40,82]],this.PushBox.BEND,this.HurtBox.BEND]],
+         ['crouch-backwards-2',[[[74,106+93,64,80],[40,82]],this.PushBox.BEND,this.HurtBox.BEND]],
         
-        ['crouch-punch-1',[[[0,200,62,79],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
-        ['crouch-punch-2',[[[93,197,81,82],[40,76]],this.PushBox.BEND,this.HurtBox.BEND,[19,-35,22,8]]],
-        ['crouch-punch-3',[[[188,199,66,80],[40,76]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-punch-1',[[[0,293,82,80],[40,82]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-punch-2',[[[93,293,82,80],[40,82]],this.PushBox.BEND,this.HurtBox.BEND,[19,-45,22,8]]],
+        ['crouch-punch-3',[[[188,293,82,80],[40,82]],this.PushBox.BEND,this.HurtBox.BEND]],
 
         ['jump-land',[[[3,385,60,80],[40,84]],this.PushBox.IDLE,this.HurtBox.IDLE]],
           
@@ -72,11 +72,11 @@ export class Jesus extends Fighter {
       
         //light punch (los personajes solo tienen este golpe)
        
-        ['light-punch-1',[[[0,558,64,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['light-punch-2',[[[104,558,64,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['light-punch-3',[[[208,558,63,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-        ['light-punch-4',[[[312,558,93,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE,[35,-52,19,8]]],
-        ['light-punch-5',[[[416,558,80,85],[40,86]],this.PushBox.IDLE,this.HurtBox.IDLE,]],
+        ['light-punch-1',[[[0,744,92,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-2',[[[1 * 104,744,92,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-3',[[[2 * 104,744,92,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-punch-4',[[[3 * 104,744,92,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE,[35,-52,19,8]]],
+        ['light-punch-5',[[[4 * 104,744,92,85],[40,88]],this.PushBox.IDLE,this.HurtBox.IDLE,]],
 
         ['med-punch-1',[[[517,1149,60,94],[28,91]],this.PushBox.IDLE,this.HurtBox.IDLE]],
         ['med-punch-2',[[[650,1148,74,95],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
@@ -85,13 +85,16 @@ export class Jesus extends Fighter {
         ['heavy-punch-1',[[[736,1148,108,94],[24,92]],this.PushBox.IDLE,this.HurtBox.PUNCH]],
        
 
-        ['crouch-kick-1',[[[16,113,24,57],[1,56]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK]],
-        ['crouch-kick-2',[[[65,113,41,57],[1,57]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK,[14,-26,26,8]]],
-        ['crouch-kick-3',[[[126,113,40,57],[1,56]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK]],
+        ['crouch-kick-1',[[[0 * 118,99,106,92],[40,90]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-kick-2',[[[1 * 118,99,106,92],[40,90]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-kick-3',[[[2 * 118,99,106,92],[40,90]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-kick-4',[[[3 * 118,99,106,92],[40,90]],this.PushBox.BEND,this.HurtBox.BEND,[22,-18,41,8]]],
+        ['crouch-kick-5',[[[4 * 118,99,106,92],[40,90]],this.PushBox.BEND,this.HurtBox.BEND]],
         //light kick (los personajes solo tienen esta patada)
        
-        ['light-kick-1',[[[12,704,25,79],[22,86]],this.PushBox.IDLE,[[-33,-96,30,18],[-41,-79,42,38],[-32,-52,44,50]]]],
-        ['light-kick-2',[[[66,704,49,79],[22,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[10,-47,16,8]]],
+        ['light-kick-1',[[[0,565,92,89],[40,89]],this.PushBox.IDLE,this.HurtBox.IDLE]],
+        ['light-kick-2',[[[102,565,92,89],[40,89]],this.PushBox.IDLE,this.HurtBox.IDLE,[17,-27,35,8]]],
+        ['light-kick-3',[[[204,565,92,89],[40,89]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 
         ['med-kick-1',[[[143,1565,114,92],[68,93]],this.PushBox.IDLE,[[-65,-96,30,18],[-57,-79,42,38],[-32,-52,44,50]]]],
         
@@ -115,11 +118,11 @@ export class Jesus extends Fighter {
           ['backwards-1',350],['backwards-2',350],
         ],
         [FighterState.JUMP_START]:[
-          ['jump-land',50],  ['jump-land',FrameDelay.TRANSITION]
+          ['jump-up-1',50],  ['jump-up-1',FrameDelay.TRANSITION]
         
         ],
         [FighterState.JUMP_LAND]:[
-          ['jump-land',33],  ['jump-land',117],['jump-land',FrameDelay.TRANSITION], 
+          ['jump-up-1',33],  ['jump-up-1',117],['jump-up-1',FrameDelay.TRANSITION], 
         
         ],
         [FighterState.JUMP_UP]:[
@@ -129,23 +132,25 @@ export class Jesus extends Fighter {
         [FighterState.CROUCH_PUNCH]:[
           ['crouch-punch-1',250],['crouch-punch-2',100],['crouch-punch-3',33],['crouch-punch-3',FrameDelay.TRANSITION]
         ],
+        [FighterState.CROUCH_KICK]:[
+          ['crouch-kick-1',100],['crouch-kick-2',100],['crouch-kick-3',100],['crouch-kick-4',100],['crouch-kick-5',100],['crouch-kick-5',FrameDelay.TRANSITION]
+        ],
         [FighterState.LIGHT_PUNCH]:[
           ['light-punch-1',33],['light-punch-2',33],
           ['light-punch-3',33],['light-punch-4',50],['light-punch-5',10],['light-punch-1',FrameDelay.TRANSITION],
         
         ],
         [FighterState.LIGHT_KICK]:[
-          ['light-kick-1',33],['light-kick-2',33],
-          ['light-kick-2',66],['light-kick-2',FrameDelay.TRANSITION],
+          ['light-kick-1',150],['light-kick-2',100],['light-kick-3',150],['light-kick-3',FrameDelay.TRANSITION],
         
         ],
         [FighterState.JUMP_FORWARD]:[
-          ['jump-roll-1',100],['jump-roll-2',50],
-          ['jump-roll-2',0],
+          ['jump-up-1',100],['jump-up-2',50],
+          ['jump-up-2',0],
         ],
         [FighterState.JUMP_BACKWARD]:[
-          ['jump-roll-1',100],['jump-roll-2',50],
-          ['jump-roll-2',0],
+          ['jump-up-1',100],['jump-up-2',50],
+          ['jump-up-2',0],
         ],
         [FighterState.CROUCH_WALK_FORWARD]: [
           ['crouch-forwards-1',350],['crouch-forwards-2',350],
@@ -154,11 +159,11 @@ export class Jesus extends Fighter {
           ['crouch-backwards-1',350],['crouch-backwards-2',350],
         ],
         [FighterState.CROUCH]:[
-          ['crouch-2',FrameDelay.FREEZE],
+          ['crouch-1',300],['crouch-2',300],
         
         ],
         [FighterState.CROUCH_DOWN]:[
-          ['crouch-1',50],['crouch-2',FrameDelay.TRANSITION],
+          ['crouch-1',50],['crouch-2',50],['crouch-2',FrameDelay.TRANSITION],
         
         ],
         [FighterState.CROUCH_UP]:[
@@ -166,13 +171,13 @@ export class Jesus extends Fighter {
         
         ],
         [FighterState.IDLE_TURN]:[
-          ['idle-turn-1',33],['idle-turn-2',33],
-          ['idle-turn-1',33],['idle-turn-1',FrameDelay.TRANSITION],
+          ['idle-1',33],['idle-2',33],
+          ['idle-1',33],['idle-1',FrameDelay.TRANSITION],
         
         ],
         [FighterState.CROUCH_TURN]:[
-          ['crouch-turn-1',33],['crouch-turn-2',33],
-          ['crouch-turn-1',33],['crouch-turn-1',FrameDelay.TRANSITION],
+          ['crouch-1',33],['crouch-2',33],
+          ['crouch-1',33],['crouch-1',FrameDelay.TRANSITION],
         
         ],
       };
@@ -190,6 +195,16 @@ export class Jesus extends Fighter {
       };
 
       this.gravity = 1000;
+    }
+
+    getLightPunchPreparationFrames()
+    {
+        return 4;
+    }
+
+    getCrouchKickPreparationFrames()
+    {
+        return 4;
     }
 }
 
