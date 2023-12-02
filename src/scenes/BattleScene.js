@@ -63,12 +63,12 @@ export class BattleScene {
             {
                 if (this.fighters[0].life < this.fighters[1].life)
                 {
-                    this.fighters[0].empujarLejosYBloquearControles();
+                    this.fighters[0].block_controls = this.fighters[1].block_controls = true;
                     this.prepareEndOfFightTimerIfNotStartedAlready(time, this.fighters[0].name, this.fighters[1].name, false);
                 }
                 else
                 {
-                    this.fighters[1].empujarLejosYBloquearControles();
+                    this.fighters[0].block_controls = this.fighters[1].block_controls = true;
                     this.prepareEndOfFightTimerIfNotStartedAlready(time, this.fighters[1].name, this.fighters[0].name, false);
                 }
             }
@@ -78,7 +78,11 @@ export class BattleScene {
                 this.prepareEndOfFightTimerIfNotStartedAlready(time, this.fighters[1].name, this.fighters[0].name, false);
         }
         else if (this.fighters[0].life <= 0 || this.statusBar.time <= 0)
+        {
+            this.fighters[0].empujarLejosYBloquearControles();
+            this.fighters[1].empujarLejosYBloquearControles();
             this.prepareEndOfFightTimerIfNotStartedAlready(time, this.fighters[0].name, this.fighters[1].name, true);
+        }
 
         if (this.endOfFightTimer.time !== 0 && this.endOfFightTimer.time < time.previous)
             this.game.currentScene = new MatchEndScene(this.game, context, this.endOfFightTimer.c1, this.endOfFightTimer.c2, this.endOfFightTimer.empate);

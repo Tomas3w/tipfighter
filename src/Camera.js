@@ -12,6 +12,7 @@ export class Camera{
 
        const lowX = Math.min(this.fighters[1].position.x,this.fighters[0].position.x);
        const highX = Math.max(this.fighters[1].position.x,this.fighters[0].position.x);
+       if (this.fighters[0].block_controls || this.fighters[1].block_controls) return;
 
        if(highX - lowX > context.canvas.width - SCROLL_BOUNDRY * 2){
             const midPoint = (highX - lowX) / 2;
