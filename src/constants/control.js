@@ -42,13 +42,13 @@ export const controls = [
             [Control.RIGHT]: 'KeyD',
             [Control.UP]: 'KeyW',
             [Control.DOWN]: 'KeyS',
-            [Control.LIGHT_PUNCH]: 'KeyR',
+            [Control.LIGHT_PUNCH]: 'KeyC',
             [Control.MEDIUM_PUNCH]: 'KeyT',
             [Control.HEAVY_PUNCH]: 'KeyY',
-            [Control.LIGHT_KICK]: 'KeyF',
+            [Control.LIGHT_KICK]: 'KeyV',
             [Control.MEDIUM_KICK]: 'KeyG',
             [Control.HEAVY_KICK]: 'KeyH',
-            [Control.SHIELD]: 'KeyQ',
+            [Control.SHIELD]: 'KeyB',
         }
         
     },
@@ -75,13 +75,13 @@ export const controls = [
             [Control.RIGHT]: 'ArrowRight',
             [Control.UP]: 'ArrowUp',
             [Control.DOWN]: 'ArrowDown',
-            [Control.LIGHT_PUNCH]: 'KeyU',
+            [Control.LIGHT_PUNCH]: 'KeyP',
             [Control.MEDIUM_PUNCH]: 'KeyI',
             [Control.HEAVY_PUNCH]: 'KeyO',
-            [Control.LIGHT_KICK]: 'KeyJ',
+            [Control.LIGHT_KICK]: 'BracketLeft',
             [Control.MEDIUM_KICK]: 'KeyK',
             [Control.HEAVY_KICK]: 'KeyL',
-            [Control.SHIELD]: 'KeyP',
+            [Control.SHIELD]: 'BracketRight',
             
         }
     }

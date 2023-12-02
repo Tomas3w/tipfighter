@@ -24,7 +24,7 @@ function PlaySound(sound) {
         sound.cloneNode(true).play();
 }
 
-const defenceWindowMax = 0.1;
+const defenceWindowMax = 0.18;
 
 export class Fighter{
 
