@@ -15,7 +15,7 @@ export class CharacterWCharacter {
 		let x = context.canvas.width / 2;
 		let y = Math.floor((context.canvas.height - 58) / 2);
         // drawFrame(context, this.image, [0, 0, 87, 58], x, y);
-		drawFrame(context, this.image, [Math.floor((this.c1 % 3) * 29), Math.floor(this.c1 / 3) * 29, 29, 29], x - 29 * 3, y);
+		drawFrame(context, this.image, [Math.floor((this.c1 % 3) * 29), Math.floor(this.c1 / 3) * 29, 29, 29], x - 29 * 2, y, -1);
 		drawFrame(context, this.image, [Math.floor((this.c2 % 3) * 29), Math.floor(this.c2 / 3) * 29, 29, 29], x + 29 * 2, y);
     }
 

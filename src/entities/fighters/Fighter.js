@@ -793,7 +793,7 @@ export class Fighter{
             this.changeState(FighterState.IDLE);
             this.energy -= 8;
             PlaySound(this.sounds['parry'][this.currentParryIndex]);
-            this.currentParryIndex = (this.currentParryIndex + 1) % 12;
+            this.currentParryIndex = (this.currentParryIndex + 1) % 11;
             return;
         }
         let multiplier = 1;
@@ -921,6 +921,7 @@ export class Fighter{
         }
         else
         {
+            this.defenceWindow = 0;
             this.timer_for_shield = 0;
             this.shieldActivated = false;
         }
@@ -1075,7 +1076,7 @@ export class Fighter{
         context.setTransform(1,0,0,1,0,0);
         context.drawImage(newCanvasContext.canvas, 0, 0);
 
-        this.drawDebug(context, camera);
+        // this.drawDebug(context, camera);
         if (this.shieldActivated)
             this.drawShield(context,camera);
     }
