@@ -1,8 +1,11 @@
 import { TIME_DELAY, TIME_FRAME_KEYS, TIME_FLASH_DELAY } from '../../constants/battle.js';
 import { drawFrame } from '../../utils/context.js';
+import { FighterIdFromName } from "../../constants/fighter.js";
+
 export class StatusBar{
     constructor(fighters){
         this.image = document.querySelector('img[alt="misc"]');
+        this.characters_image = document.querySelector('img[alt="cuadros-personajes"]');
 
         this.time = 99;
         this.timeTimer = 0;
@@ -48,6 +51,7 @@ export class StatusBar{
             ['tag-tomas',[56,56,48,9]],
             ['tag-jesus',[168,56,43,9]],
             ['tag-milton',[226,56,55,9]],
+            ['tag-bernardo',[287,40,75,9]],
 
         ]);
 
@@ -112,11 +116,18 @@ export class StatusBar{
 
     }
 
+    drawCuadroPersonaje(context) {
+        let c1 = FighterIdFromName[this.fighters[0].name];
+        let c2 = FighterIdFromName[this.fighters[1].name];
+        drawFrame(context, this.characters_image, [Math.floor((c1 % 3) * 29), Math.floor(c1 / 3) * 29, 29, 29], 4, 13);
+        drawFrame(context, this.characters_image, [Math.floor((c2 % 3) * 29), Math.floor(c2 / 3) * 29, 29, 29], context.canvas.width - 4 - 29, 13);
+    }
+
     draw(context){
         this.drawHealthBars(context);
         this.drawNameTags(context);
         this.drawTime(context);
-       
+        this.drawCuadroPersonaje(context);
       
 
 

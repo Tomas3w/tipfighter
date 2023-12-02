@@ -5,6 +5,7 @@ import {Joaquin} from "../entities/fighters/Joaquin.js";
 import {Milton} from "../entities/fighters/Milton.js";
 import {Jesus} from "../entities/fighters/Jesus.js";
 // import {Maximiliano} from "../entities/fighters/Maximiliano.js";
+import {Bernardo} from "../entities/fighters/Bernardo.js";
 import {Stage} from "../entities/Stage.js";
 import {FpsCounter} from "../entities/FpsCounter.js";
 import { STAGE_MID_POINT, STAGE_PADDING} from "../constants/stage.js";
@@ -23,7 +24,8 @@ const FighterClasses = [
     Joaquin,
     Jesus,
     Maximiliano,
-    undefined,
+    Bernardo,
+
 ];
 
 export class BattleScene {
@@ -46,6 +48,8 @@ export class BattleScene {
             new FpsCounter(),
             this.statusBar,
         ]
+
+        this.endOfFightTimer = {time: 0};
     }
 
     update(time, context) {
@@ -60,17 +64,40 @@ export class BattleScene {
             if (this.statusBar.time <= 0)
             {
                 if (this.fighters[0].life < this.fighters[1].life)
-                    this.game.currentScene = new MatchEndScene(this.game, context, FighterIdFromName[this.fighters[1].name], FighterIdFromName[this.fighters[0].name]);
+                {
+                    this.fighters[0].block_controls = this.fighters[1].block_controls = true;
+                    this.prepareEndOfFightTimerIfNotStartedAlready(time, this.fighters[0].name, this.fighters[1].name, false);
+                }
                 else
-                    this.game.currentScene = new MatchEndScene(this.game, context, FighterIdFromName[this.fighters[0].name], FighterIdFromName[this.fighters[1].name]);
+                {
+                    this.fighters[0].block_controls = this.fighters[1].block_controls = true;
+                    this.prepareEndOfFightTimerIfNotStartedAlready(time, this.fighters[1].name, this.fighters[0].name, false);
+                }
             }
             if (this.fighters[0].life <= 0)
-                this.game.currentScene = new MatchEndScene(this.game, context, FighterIdFromName[this.fighters[0].name], FighterIdFromName[this.fighters[1].name]);
+                this.prepareEndOfFightTimerIfNotStartedAlready(time, this.fighters[0].name, this.fighters[1].name, false);
             else if (this.fighters[1].life <= 0)
-                this.game.currentScene = new MatchEndScene(this.game, context, FighterIdFromName[this.fighters[1].name], FighterIdFromName[this.fighters[0].name]);
+                this.prepareEndOfFightTimerIfNotStartedAlready(time, this.fighters[1].name, this.fighters[0].name, false);
         }
         else if (this.fighters[0].life <= 0 || this.statusBar.time <= 0)
-            this.game.currentScene = new MatchEndScene(this.game, context, FighterIdFromName[this.fighters[0].name], FighterIdFromName[this.fighters[1].name], true);
+        {
+            this.fighters[0].empujarLejosYBloquearControles();
+            this.fighters[1].empujarLejosYBloquearControles();
+            this.prepareEndOfFightTimerIfNotStartedAlready(time, this.fighters[0].name, this.fighters[1].name, true);
+        }
+
+        if (this.endOfFightTimer.time !== 0 && this.endOfFightTimer.time < time.previous)
+            this.game.currentScene = new MatchEndScene(this.game, context, this.endOfFightTimer.c1, this.endOfFightTimer.c2, this.endOfFightTimer.empate);
+    }
+
+    prepareEndOfFightTimerIfNotStartedAlready(time, c1_name, c2_name, empate) {
+        if (this.endOfFightTimer.time === 0)
+        {
+            this.endOfFightTimer.time = time.previous + 3000;
+            this.endOfFightTimer.c1 = FighterIdFromName[c1_name];
+            this.endOfFightTimer.c2 = FighterIdFromName[c2_name];
+            this.endOfFightTimer.empate = empate;
+        }
     }
 
     draw(context) {

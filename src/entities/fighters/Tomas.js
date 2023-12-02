@@ -88,8 +88,6 @@ export class Tomas extends Fighter {
         //light punch (los personajes solo tienen este golpe)
        
         ['light-punch-1',[[[0,873,28,78],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
-
-       
         ['light-punch-2',[[[61,873,49,78],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE,[14,-70,23,8]]],
         ['light-punch-3',[[[123,873,49,78],[12,86]],this.PushBox.IDLE,this.HurtBox.IDLE]],
 

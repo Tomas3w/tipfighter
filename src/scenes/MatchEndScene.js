@@ -20,7 +20,7 @@ import { EmpateText } from "../entities/overlays/EmpateText.js";
 import { MenuScene } from "../scenes/MenuScene.js";
 
 export class MatchEndScene {
-    constructor(game, context, c1, c2, es_empate = false) {
+    constructor(game, context, c2, c1, es_empate = false) {
         this.game = game;
         this.camera_y = 0;
         this.background_animation = new BackgroundAnimation(0);
