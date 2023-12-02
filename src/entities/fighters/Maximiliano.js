@@ -38,7 +38,7 @@ export class Maximiliano extends Fighter {
         IDLE:[[-15,-86,14,16],[-22,-70,27,34],[-18,-36,20,28]],
      };
 
-     this.shieldOriginOffset[0] = 67;
+     // this.shieldOriginOffset[0] = 67;
 
       this.frames = new Map([
          //idle stance

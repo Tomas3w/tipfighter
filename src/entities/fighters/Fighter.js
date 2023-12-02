@@ -24,6 +24,8 @@ function PlaySound(sound) {
         sound.cloneNode(true).play();
 }
 
+const defenceWindowMax = 0.1;
+
 export class Fighter{
 
     //Collision boxes
@@ -50,6 +52,10 @@ export class Fighter{
         this.requestAnimationTimerReset = true;
         this.block_controls = false;
         this.golpeado_timer = 0;
+        this.parry_timer = 0;
+        this.defenceWindow = 0;
+        this.isDefenceWindowActive = false;
+        this.timer_for_shield = 0;
 
         this.sounds = LoadSounds({
             'punch': Array.from({ length: 12 }, (_, i) => `punch${i}`),
@@ -57,7 +63,7 @@ export class Fighter{
             'final': Array.from({ length: 13 }, (_, i) => `final${i}`),
         });
 
-        this.shieldOriginOffset = [45, ShieldSize[1] - 10];
+        this.shieldOriginOffset = [55, ShieldSize[1] - 10];
 
         this.animationFrame = 0;
         this.animationFrameShield = 0;
@@ -740,7 +746,11 @@ export class Fighter{
 
     updateAttackBoxCollided(time){
         if(!this.states[this.currentState].attackType) return;
-        if (this.boxes.hit.width === 0) this.hasHit = false;
+        if (this.boxes.hit.width === 0)
+        {
+            this.hasHit = false;
+            return;
+        }
         if (this.hasHit) return;
 
         const actualHitBox = getActualBoxDimensions(this.position,this.direction,this.boxes.hit);
@@ -761,12 +771,27 @@ export class Fighter{
 
             // console.log(`${this.name} has hit ${this.opponent.name} ${hurtName[hurtIndex]}`)
             this.hasHit = true;
+            if (this.opponent.defenceWindow > 0)
+            {
+                this.velocity.x = 4;
+                this.velocity.y = -100;
+            }
             this.opponent.golpear(this.position.y < STAGE_FLOOR, this.attacksDamages[this.currentState] * (1 + Math.random() * 0.2));
             break; // esto garantiza que solo una parte del cuerpo se haya golpeado
         }
     }
 
     golpear(in_the_air, danio) {
+        if (this.shieldActivated) return;
+        if (this.defenceWindow > 0 && this.energy > 8)
+        {
+            this.parry_timer = 1;
+            this.golpeado_timer = 0;
+            this.defenceWindow = 0;
+            this.changeState(FighterState.IDLE);
+            this.energy -= 8;
+            return;
+        }
         let multiplier = 1;
         // Este codigo permite defenderse de los ataques, solo se puede defender si no esta atacando
         this.golpeado_timer = 1;
@@ -778,7 +803,7 @@ export class Fighter{
                 // La defensa desaparece si el ataque golpea a alguien agachado
                 if (!this.currentState.startsWith('crouch'))
                 {
-                    multiplier = 1 / 2;
+                    multiplier = 1 / 3;
                     this.golpeado_timer = 0.3;
                 }
             }
@@ -849,6 +874,52 @@ export class Fighter{
             this.velocity.x = this.initialVelocity.x[this.currentState];
         // manejo de timer de golpe
         this.golpeado_timer -= time.secondsPassed;
+        // manejo de timer de parry
+        this.parry_timer -= time.secondsPassed;
+
+        // if (this.playerId === 0)
+        //     console.log("defenceWindow ", this.defenceWindow);
+        // Codigo de esquivacion
+        if (control.isShield(this.playerId))
+        {
+            if (this.energy > 0)
+            {
+                if (this.timer_for_shield > 0.5)
+                {
+                    if (this.shieldActivated)
+                        this.energy -= time.secondsPassed * 100;
+                    else
+                    {
+                        this.shieldFrame = 10;
+                        this.shieldActivated = true;
+                    }
+                }
+                else
+                    this.timer_for_shield += time.secondsPassed;
+            }
+            else
+                this.shieldActivated = false;
+            if (control.isForward(this.playerId, this.getDirection()))
+            {
+                if (this.isDefenceWindowActive)
+                    this.defenceWindow = Math.max(0, this.defenceWindow - time.secondsPassed);
+                else
+                {
+                    this.defenceWindow = defenceWindowMax;
+                    this.isDefenceWindowActive = true;
+                }
+            }
+            else
+            {
+                this.isDefenceWindowActive = false;
+                this.defenceWindow = 0;
+            }
+        }
+        else
+        {
+            this.timer_for_shield = 0;
+            this.shieldActivated = false;
+        }
     }
 
     drawDebugBox(context, camera, dimensions, baseColor){
@@ -951,9 +1022,6 @@ export class Fighter{
         // if (this.playerId === 1) console.log(this.position.x);
 
         context.scale(this.direction,1);
-        // let angle_of_rotation = -Math.PI * (this.golpeado_timer - 1) / 10;
-        // if (this.block_controls)
-        //     context.rotate(angle_of_rotation);
         context.drawImage(
             this.image,
             x,y,
@@ -978,13 +1046,26 @@ export class Fighter{
             width,height
             );
 
-        newCanvasContext.globalCompositeOperation = 'source-in';
-        newCanvasContext.fillStyle = 'rgba(255, 0, 0, ' + this.golpeado_timer + ')';
-        newCanvasContext.fillRect(
-            Math.floor((this.position.x - camera.position.x) * this.direction ) -originX,
-            Math.floor(this.position.y - camera.position.y) -originY,
-            width,height
-            );
+        if (this.golpeado_timer > 0)
+        {
+            newCanvasContext.globalCompositeOperation = 'source-in';
+            newCanvasContext.fillStyle = 'rgba(255, 0, 0, ' + this.golpeado_timer + ')';
+            newCanvasContext.fillRect(
+                Math.floor((this.position.x - camera.position.x) * this.direction ) -originX,
+                Math.floor(this.position.y - camera.position.y) -originY,
+                width,height
+                );
+        }
+        else
+        {
+            newCanvasContext.globalCompositeOperation = 'source-in';
+            newCanvasContext.fillStyle = 'rgba(255, 255, 255, ' + this.parry_timer + ')';
+            newCanvasContext.fillRect(
+                Math.floor((this.position.x - camera.position.x) * this.direction ) -originX,
+                Math.floor(this.position.y - camera.position.y) -originY,
+                width,height
+                );
+        }
         newCanvasContext.setTransform(1,0,0,1,0,0);
         
         context.setTransform(1,0,0,1,0,0);

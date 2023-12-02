@@ -8,6 +8,7 @@ export class Jesus extends Fighter {
 
       this.PushBox = {
         IDLE: [-17,-85,36,83],
+        // IDLE: [-17,-55,36,53],
         JUMP: [-16,-91,32,66],
         BEND: [-16,-78,32,78],
         CROUCH: [-50,-120,32,50],
