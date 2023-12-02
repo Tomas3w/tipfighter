@@ -56,11 +56,13 @@ export class Fighter{
         this.defenceWindow = 0;
         this.isDefenceWindowActive = false;
         this.timer_for_shield = 0;
+        this.currentParryIndex = 0;
 
         this.sounds = LoadSounds({
             'punch': Array.from({ length: 12 }, (_, i) => `punch${i}`),
             'hit': Array.from({ length: 14 }, (_, i) => `hit${i}`),
             'final': Array.from({ length: 13 }, (_, i) => `final${i}`),
+            'parry': Array.from({ length: 11 }, (_, i) => `parry${i}`),
         });
 
         this.shieldOriginOffset = [55, ShieldSize[1] - 10];
@@ -790,6 +792,8 @@ export class Fighter{
             this.defenceWindow = 0;
             this.changeState(FighterState.IDLE);
             this.energy -= 8;
+            PlaySound(this.sounds['parry'][this.currentParryIndex]);
+            this.currentParryIndex = (this.currentParryIndex + 1) % 12;
             return;
         }
         let multiplier = 1;
