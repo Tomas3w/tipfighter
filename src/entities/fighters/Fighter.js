@@ -759,8 +759,7 @@ export class Fighter{
 
             // console.log(`${this.name} has hit ${this.opponent.name} ${hurtName[hurtIndex]}`)
             this.hasHit = true;
-            this.opponent.golpear(this.position.y < STAGE_FLOOR, this.attacksDamages[this.currentState] + Math.random() * 3);
-            // console.log('this ', this.sounds);
+            this.opponent.golpear(this.position.y < STAGE_FLOOR, this.attacksDamages[this.currentState] * (1 + Math.random() * 0.2));
             break; // esto garantiza que solo una parte del cuerpo se haya golpeado
         }
     }
@@ -768,6 +767,7 @@ export class Fighter{
     golpear(in_the_air, danio) {
         let multiplier = 1;
         // Este codigo permite defenderse de los ataques, solo se puede defender si no esta atacando
+        this.golpeado_timer = 1;
         if (this.states[this.currentState].attackType === undefined && control.isBackward(this.playerId,this.direction))
         {
             // Es imposible defenderse si el ataque viene del aire
@@ -776,8 +776,6 @@ export class Fighter{
                 multiplier = 1 / 8;
                 this.golpeado_timer = 0.1;
             }
-            else
-                this.golpeado_timer = 1;
         }
         // En esta parte se quita vida, la misma de multiplica por un factor que depende del if anterior
         this.life -= danio * multiplier;
@@ -836,6 +834,8 @@ export class Fighter{
         }
         else
             this.velocity.x *= 0.99;
+        if ([FighterState.WALK_FORWARD,FighterState.WALK_BACKWARD,FighterState.CROUCH_WALK_FORWARD,FighterState.CROUCH_WALK_BACKWARD].includes(this.currentState))
+            this.velocity.x = this.initialVelocity.x[this.currentState];
         // manejo de timer de golpe
         this.golpeado_timer -= time.secondsPassed;
     }
