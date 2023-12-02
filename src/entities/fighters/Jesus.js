@@ -23,6 +23,13 @@ export class Jesus extends Fighter {
         PUNCH:[[11,-94,24,18],[-7,-77,40,43],[-7,-33,40,33]],
      };
 
+      this.attacksDamages = {
+          [FighterState.LIGHT_PUNCH]: 25,
+          [FighterState.LIGHT_KICK]: 25,
+          [FighterState.CROUCH_PUNCH]: 17,
+          [FighterState.CROUCH_KICK]: 15,
+      };
+
       this.frames = new Map([
          //idle stance
        
@@ -130,18 +137,18 @@ export class Jesus extends Fighter {
 
         ],
         [FighterState.CROUCH_PUNCH]:[
-          ['crouch-punch-1',250],['crouch-punch-2',100],['crouch-punch-3',33],['crouch-punch-3',FrameDelay.TRANSITION]
+          ['crouch-punch-1',450],['crouch-punch-2',80],['crouch-punch-3',130],['crouch-punch-3',FrameDelay.TRANSITION]
         ],
         [FighterState.CROUCH_KICK]:[
-          ['crouch-kick-1',100],['crouch-kick-2',100],['crouch-kick-3',100],['crouch-kick-4',100],['crouch-kick-5',100],['crouch-kick-5',FrameDelay.TRANSITION]
+          ['crouch-kick-1',100],['crouch-kick-2',150],['crouch-kick-3',150],['crouch-kick-4',50],['crouch-kick-5',100],['crouch-kick-5',FrameDelay.TRANSITION]
         ],
         [FighterState.LIGHT_PUNCH]:[
-          ['light-punch-1',33],['light-punch-2',33],
-          ['light-punch-3',33],['light-punch-4',50],['light-punch-5',10],['light-punch-1',FrameDelay.TRANSITION],
+          ['light-punch-1',100],['light-punch-2',100],
+          ['light-punch-3',150],['light-punch-4',80],['light-punch-5',120],['light-punch-1',FrameDelay.TRANSITION],
         
         ],
         [FighterState.LIGHT_KICK]:[
-          ['light-kick-1',150],['light-kick-2',100],['light-kick-3',150],['light-kick-3',FrameDelay.TRANSITION],
+          ['light-kick-1',350],['light-kick-2',100],['light-kick-3',100],['light-kick-3',FrameDelay.TRANSITION],
         
         ],
         [FighterState.JUMP_FORWARD]:[

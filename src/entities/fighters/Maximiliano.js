@@ -11,21 +11,28 @@ export class Maximiliano extends Fighter {
 
         IDLE: [-14,-87,28,79],
         JUMP: [-16,-91,32,66],
-        BEND: [-16,-77,32,70],
+        BEND: [-16,-83,32,76],
         CROUCH: [-16,-120,32,50],
         CROUCHKICK: [-16,-47,32,40],
      }
      
      this.HurtBox = {
-        IDLE:[[-5,-86,14,16],[-12,-70,27,34],[-8,-36,20,28]],
+        IDLE:[[0,-86,14,16],[-12,-70,27,34],[-8,-36,20,28]],
         BACKWARD:[[-19,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
         FORWARD:[[-3,-88,24,16],[-26,-74,40,42],[-26,-31,40,32]],
         JUMP:[[-13,-106,28,18],[-16,-53,40,42],[-22,-66,38,18]],
-        BEND:[[-8,-76,14,16],[-16,-60,32,34],[-10,-30,24,22]],
+        BEND:[[0,-83,14,16],[-16,-64,32,34],[-10,-30,24,22]],
         CROUCH:[[6,-61,24,18],[-16,-46,44,24],[-16,-24,44,24]],
         PUNCH:[[11,-94,24,18],[-7,-77,40,43],[-7,-33,40,33]],
         CROUCHKICK:[[-8,-46,14,16],[-16,-40,32,14],[-10,-30,24,22]],
      };
+
+      this.attacksDamages = {
+          [FighterState.LIGHT_PUNCH]: 13,
+          [FighterState.LIGHT_KICK]: 13,
+          [FighterState.CROUCH_PUNCH]: 10,
+          [FighterState.CROUCH_KICK]: 10,
+      };
 
      this.Shield = {
         IDLE:[[-15,-86,14,16],[-22,-70,27,34],[-18,-36,20,28]],
@@ -61,9 +68,9 @@ export class Maximiliano extends Fighter {
         ['crouch-punch-2',[[[94,284,62,77],[11,82]],this.PushBox.BEND,this.HurtBox.BEND,[29,-61,22,8]]],
         ['crouch-punch-3',[[[177,284,53,77],[11,82]],this.PushBox.BEND,this.HurtBox.BEND]],
 
-        ['crouch-kick-1',[[[2,99,41,80],[11,82]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK]],
-        ['crouch-kick-2',[[[65,99,51,80],[11,82]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK,[14,-20,26,8]]],
-        ['crouch-kick-3',[[[130,99,43,80],[11,82]],this.PushBox.CROUCHKICK,this.HurtBox.CROUCHKICK]],
+        ['crouch-kick-1',[[[2,99,41,80],[11,82]],this.PushBox.BEND,this.HurtBox.BEND]],
+        ['crouch-kick-2',[[[65,99,51,80],[11,82]],this.PushBox.BEND,this.HurtBox.BEND,[14,-20,26,8]]],
+        ['crouch-kick-3',[[[130,99,43,80],[11,82]],this.PushBox.BEND,this.HurtBox.BEND]],
               
         ['jump-land',[[[70,459,49,80],[12,84]],this.PushBox.IDLE,this.HurtBox.IDLE]],
           
@@ -151,13 +158,13 @@ export class Maximiliano extends Fighter {
 
         ],
         [FighterState.LIGHT_PUNCH]:[
-          ['light-punch-1',250],['light-punch-2',100],
-          ['light-punch-3',33],['light-punch-1',FrameDelay.TRANSITION],
+          ['light-punch-1',300],['light-punch-2',100],
+          ['light-punch-3',80],['light-punch-1',FrameDelay.TRANSITION],
         
         ],
         [FighterState.LIGHT_KICK]:[
-          ['light-kick-1',250],['light-kick-2',100],
-          ['light-kick-3',66],['light-kick-3',FrameDelay.TRANSITION],
+          ['light-kick-1',280],['light-kick-2',100],
+          ['light-kick-3',100],['light-kick-3',FrameDelay.TRANSITION],
         
         ],
         [FighterState.JUMP_FORWARD]:[

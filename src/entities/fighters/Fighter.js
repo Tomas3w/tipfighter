@@ -370,6 +370,7 @@ export class Fighter{
         if(!control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_UP);
         if(!control.isForward(this.playerId, this.direction)) this.changeState(FighterState.CROUCH_DOWN);
         if(control.isLightPunch(this.playerId)) this.changeState(FighterState.CROUCH_PUNCH);
+        if(control.isLightKick(this.playerId)) this.changeState(FighterState.CROUCH_KICK);
 
         const newDirection = this.getDirection();
 
@@ -383,6 +384,7 @@ export class Fighter{
         if(!control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_UP);
         if(!control.isBackward(this.playerId, this.direction)) this.changeState(FighterState.CROUCH_DOWN);
         if(control.isLightPunch(this.playerId)) this.changeState(FighterState.CROUCH_PUNCH);
+        if(control.isLightKick(this.playerId)) this.changeState(FighterState.CROUCH_KICK);
 
         const newDirection = this.getDirection();
 
@@ -770,8 +772,17 @@ export class Fighter{
         this.golpeado_timer = 1;
         if (this.states[this.currentState].attackType === undefined && control.isBackward(this.playerId,this.direction))
         {
-            // Es imposible defenderse si el ataque viene del aire
-            if (!in_the_air)
+            // La defensa se reduce cuando el ataque viene del aire
+            if (in_the_air)
+            {
+                // La defensa desaparece si el ataque golpea a alguien agachado
+                if (!this.currentState.startsWith('crouch'))
+                {
+                    multiplier = 1 / 2;
+                    this.golpeado_timer = 0.3;
+                }
+            }
+            else
             {
                 multiplier = 1 / 8;
                 this.golpeado_timer = 0.1;
