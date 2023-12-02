@@ -778,6 +778,8 @@ export class Fighter{
                 this.velocity.x = 4;
                 this.velocity.y = -100;
             }
+            else
+                this.energy = Math.min(this.energy + 1, 100);
             this.opponent.golpear(this.position.y < STAGE_FLOOR, this.attacksDamages[this.currentState] * (1 + Math.random() * 0.2));
             break; // esto garantiza que solo una parte del cuerpo se haya golpeado
         }
