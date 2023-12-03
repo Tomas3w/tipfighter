@@ -22,14 +22,14 @@ export class MenuScene {
         this.background_animation = new BackgroundAnimation(0);
         this.title_text = new TitleText();
 
-        this.arcade_button = new Button(context, [0, 46, 78, 29], [0, 0, 78, 29], {x: 100, y: 120}, () => {
+        this.arcade_button = new Button(context, [0, 46, 78, 29], [0, 0, 78, 29], {x: context.canvas.width / 2 - 78 / 2, y: 120}, () => {
             this.game.currentScene = new CharacterSelectionScene(game, context);
             this.arcade_button.destroy();
         });
-        this.story_button = new Button(context, [124, 46, 78, 29], [124, 0, 78, 29], {x: 200, y: 120}, () => {
-            console.log('hello!');
-            this.story_button.destroy();
-        });
+        // this.story_button = new Button(context, [124, 46, 78, 29], [124, 0, 78, 29], {x: 200, y: 120}, () => {
+        //     console.log('hello!');
+        //     this.story_button.destroy();
+        // });
 
         if (do_intro)
             this.startup_time = this.game.frameTime.previous;
@@ -41,7 +41,7 @@ export class MenuScene {
             this.title_text,
 
             this.arcade_button,
-            this.story_button,
+            // this.story_button,
         ]
     }
 
@@ -50,7 +50,7 @@ export class MenuScene {
             entity.update(time, context, this.camera);
         }
         this.arcade_button.position.y = this.title_text.frame + 150;
-        this.story_button.position.y = this.title_text.frame + 150;
+        // this.story_button.position.y = this.title_text.frame + 150;
         if (time.previous > this.startup_time + 2000 && !this.background_animation.on)
             this.background_animation.activate(time);
         if (this.background_animation.isActive() && this.background_animation.frame > 14 && !this.title_text.isActive())

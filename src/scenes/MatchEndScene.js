@@ -24,9 +24,13 @@ export class MatchEndScene {
         this.game = game;
         this.camera_y = 0;
         this.background_animation = new BackgroundAnimation(0);
-        this.button = new Button(context, [0, 75 + 46 + 75, 78, 29], [0, 75 + 75, 78, 29], {x: context.canvas.width / 2 - 78 / 2, y: 180}, () => {
+        this.button_menu = new Button(context, [0, 75 + 46 + 75, 78, 29], [0, 75 + 75, 78, 29], {x: context.canvas.width / 2 - 78 / 2 - 50, y: 180}, () => {
             game.currentScene = new MenuScene(game, context, false);
-            this.button.destroy();
+            this.button_menu.destroy();
+        });
+        this.button_selection = new Button(context, [0, 46, 78, 29], [0, 0, 78, 29], {x: context.canvas.width / 2 - 78 / 2 + 50, y: 180}, () => {
+            game.currentScene = new CharacterSelectionScene(game, context);
+            this.button_selection.destroy();
         });
         this.overlay = new CharacterWCharacter(c1, c2);
         if (es_empate)
@@ -36,7 +40,8 @@ export class MatchEndScene {
 
         this.entities = [
             this.background_animation,
-            this.button,
+            this.button_menu,
+            this.button_selection,
             this.overlay,
             this.text_overlay
         ]

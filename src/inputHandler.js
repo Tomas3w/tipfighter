@@ -22,9 +22,9 @@ function handleKeyUp(event){
 }
 
 function handleGamepadConnected(event){
-    const {gamepad: {index,axes,buttones}} = event;
+    const {gamepad: {index,axes,buttons}} = event;
 
-    gamePads.set(index, {axes, buttones});
+    gamePads.set(index, {axes, buttons});
 }
 
 function handleGamepadDisconnected(event){
@@ -74,7 +74,11 @@ export function isKeyPressed(code){
     return false;
 }
 
-export const isButtonDown = (padId,button) => gamePads.get(padId)?.buttons[button].pressed;
+export const isButtonDown = (padId, button) => {
+    const gamepad = gamePads.get(padId);
+    return gamepad && gamepad.buttons[button]?.pressed;
+};
+
 export const isButtonUp = (padId,button) => !gamePads.get(padId)?.buttons[button].pressed;
 
 export function isButtonPressed(padId,button){

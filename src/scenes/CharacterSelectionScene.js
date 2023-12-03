@@ -13,6 +13,7 @@ import { BackgroundAnimation } from "../entities/BackgroundAnimation.js";
 import { BattleScene } from "../scenes/BattleScene.js";
 import { Button } from "../entities/Button.js";
 import { CharacterSelector } from "../entities/CharacterSelector.js";
+import { MenuScene } from "../scenes/MenuScene.js";
 
 export class CharacterSelectionScene {
     constructor(game, context) {
@@ -20,10 +21,16 @@ export class CharacterSelectionScene {
         this.camera_y = 0;
         this.background_animation = new BackgroundAnimation(1);
 
-        this.play_button = new Button(context, [0, 75 + 46, 78, 29], [0, 75, 78, 29], {x: context.canvas.width / 2 - 78 / 2, y: 180}, () => {
+        this.button_menu = new Button(context, [0, 75 + 46 + 75, 78, 29], [0, 75 + 75, 78, 29], {x: context.canvas.width / 2 - 78 / 2 - 50, y: 180}, () => {
+            game.currentScene = new MenuScene(game, context, false);
+            this.button_menu.destroy();
+        });
+        this.play_button = new Button(context, [0, 75 + 46, 78, 29], [0, 75, 78, 29], {x: context.canvas.width / 2 - 78 / 2 + 50, y: 180}, () => {
 			this.background_animation.activate(game.frameTime);
-			this.entities.splice(this.entities.indexOf(this.play_button), 1);
+			this.entities.splice(this.entities.indexOf(this.button_menu), 1);
+            this.entities.splice(this.entities.indexOf(this.play_button), 1);
 			this.entities.splice(this.entities.indexOf(this.selector), 1);
+            this.button_menu.destroy();
             this.play_button.destroy();
         });
 
@@ -31,6 +38,7 @@ export class CharacterSelectionScene {
 
         this.entities = [
             this.background_animation,
+            this.button_menu,
             this.play_button,
 			this.selector,
         ]
