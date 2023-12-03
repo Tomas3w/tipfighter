@@ -22,6 +22,12 @@ export class MenuScene {
         this.background_animation = new BackgroundAnimation(0);
         this.title_text = new TitleText();
 
+        // this.music = document.getElementById('tiger');
+        document.getElementById('tiger').loop = true;
+        document.getElementById('tiger').volume = 0.5;
+        document.getElementById('tiger').play();
+
+
         this.arcade_button = new Button(context, [0, 46, 78, 29], [0, 0, 78, 29], {x: context.canvas.width / 2 - 78 / 2, y: 120}, () => {
             this.game.currentScene = new CharacterSelectionScene(game, context);
             this.arcade_button.destroy();

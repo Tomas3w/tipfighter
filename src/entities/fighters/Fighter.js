@@ -795,6 +795,10 @@ export class Fighter{
             this.changeState(FighterState.IDLE);
             this.energy -= 8;
             PlaySound(this.sounds['parry'][this.currentParryIndex]);
+            document.getElementById('tiger').volume = 0.2;
+            setTimeout(() => {
+                document.getElementById('tiger').volume = 0.5;
+            }, 1000);
             this.currentParryIndex = (this.currentParryIndex + 1) % 11;
             return;
         }

@@ -24,7 +24,6 @@ constructor(){
 
     this.currentScene = new MenuScene(this, this.context);
 
-
     // this.currentScene = new BattleScene(this, this.context, 4, 0);
 
 
