@@ -92,6 +92,10 @@ export class BattleScene {
     prepareEndOfFightTimerIfNotStartedAlready(time, c1_name, c2_name, empate) {
         if (this.endOfFightTimer.time === 0)
         {
+            document.getElementById('tiger').volume = 0.2;
+            setTimeout(() => {
+                document.getElementById('tiger').volume = 0.5;
+            }, 3000);
             this.endOfFightTimer.time = time.previous + 3000;
             this.endOfFightTimer.c1 = FighterIdFromName[c1_name];
             this.endOfFightTimer.c2 = FighterIdFromName[c2_name];
