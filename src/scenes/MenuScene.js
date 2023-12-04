@@ -28,7 +28,7 @@ export class MenuScene {
         document.getElementById('tiger').play();
 
 
-        this.arcade_button = new Button(context, [0, 46, 78, 29], [0, 0, 78, 29], {x: context.canvas.width / 2 - 78 / 2, y: 120}, () => {
+        this.arcade_button = new Button(context, [0, 75 + 46, 78, 29], [0, 75, 78, 29], {x: context.canvas.width / 2 - 78 / 2, y: 120}, () => {
             this.game.currentScene = new CharacterSelectionScene(game, context);
             this.arcade_button.destroy();
         });

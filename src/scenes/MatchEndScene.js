@@ -28,7 +28,7 @@ export class MatchEndScene {
             game.currentScene = new MenuScene(game, context, false);
             this.button_menu.destroy();
         });
-        this.button_selection = new Button(context, [0, 46, 78, 29], [0, 0, 78, 29], {x: context.canvas.width / 2 - 78 / 2 + 50, y: 180}, () => {
+        this.button_selection = new Button(context, [0, 75 + 46, 78, 29], [0, 75, 78, 29], {x: context.canvas.width / 2 - 78 / 2 + 50, y: 180}, () => {
             game.currentScene = new CharacterSelectionScene(game, context);
             this.button_selection.destroy();
         });
